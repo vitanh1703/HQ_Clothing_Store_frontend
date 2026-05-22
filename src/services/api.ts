@@ -181,9 +181,17 @@ export interface DashboardStatisticsResponse {
   }[];
 }
 
+const apiClient = axios.create({
+    baseURL: API_BASE,
+    headers: {
+        'Content-Type': 'application/json',
+        'bypass-tunnel-reminder': 'true' 
+    }
+});
+
 export const authApi = {
   login: async (loginData: any) => {
-    const response = await axios.post(`${API_BASE}/Auth/login`, {
+    const response = await apiClient.post('/Auth/login', {
       Email: loginData.email,    
       Password: loginData.password
     });
@@ -191,12 +199,12 @@ export const authApi = {
   },
 
   register: async (formData: any) => {
-    const response = await axios.post(`${API_BASE}/Auth/register`, formData);
+    const response = await apiClient.post('/Auth/register', formData);
     return response.data;
   },
 
   googleLogin: async (idToken: string) => {
-    const response = await axios.post(`${API_BASE}/Auth/google-login`, { 
+    const response = await apiClient.post('/Auth/google-login', { 
       token: idToken 
     });
     return response.data;
@@ -205,7 +213,7 @@ export const authApi = {
 
 export const productApi = {
   getAll: async (categoryId?: number): Promise<Product[]> => {
-    const response = await axios.get(`${API_BASE}/Products`, {
+    const response = await apiClient.get(`${API_BASE}/Products`, {
       params: categoryId ? { category: categoryId } : undefined,
     });
     return response.data;
@@ -214,103 +222,103 @@ export const productApi = {
     return productApi.getAll(categoryId);
   },
   getReviewSummary: async (productId: number): Promise<ReviewResponse> => {
-    const response = await axios.get(`${API_BASE}/Products/${productId}/reviews`);
+    const response = await apiClient.get(`${API_BASE}/Products/${productId}/reviews`);
     return response.data;
   },
   getCategories: async (): Promise<Category[]> => {
-    const response = await axios.get(`${API_BASE}/Products/categories`);
+    const response = await apiClient.get(`${API_BASE}/Products/categories`);
     return response.data;
   },
   getAllForAdmin: async (): Promise<Product[]> => {
-    const response = await axios.get(`${API_BASE}/Products/admin/all`);
+    const response = await apiClient.get(`${API_BASE}/Products/admin/all`);
     return response.data;
   },
   create: async (product: Omit<Product, 'id'>): Promise<Product> => {
-    const response = await axios.post(`${API_BASE}/Products/admin/create`, product);
+    const response = await apiClient.post(`${API_BASE}/Products/admin/create`, product);
     return response.data;
   },
   update: async (id: number, product: Partial<Product>): Promise<Product> => {
-    const response = await axios.put(`${API_BASE}/Products/admin/${id}`, product);
+    const response = await apiClient.put(`${API_BASE}/Products/admin/${id}`, product);
     return response.data;
   },
   delete: async (id: number): Promise<void> => {
-    await axios.delete(`${API_BASE}/Products/admin/${id}`);
+    await apiClient.delete(`${API_BASE}/Products/admin/${id}`);
   }
 };
 
 export const cartApi = {
   add: async (data: AddToCartRequest) => {
-    const response = await axios.post(`${API_BASE}/Cart/add`, data);
+    const response = await apiClient.post(`${API_BASE}/Cart/add`, data);
     return response.data;
   },
 
   remove: async (cartItemId: number) => {
-    const response = await axios.delete(`${API_BASE}/Cart/remove/${cartItemId}`);
+    const response = await apiClient.delete(`${API_BASE}/Cart/remove/${cartItemId}`);
     return response.data;
   },
 
   getCheckout: async (userId: number): Promise<CheckoutResponse> => {
-    const response = await axios.get(`${API_BASE}/Cart/checkout/${userId}`);
+    const response = await apiClient.get(`${API_BASE}/Cart/checkout/${userId}`);
     return response.data;
   }
 };
 
 export const newsApi = {
   getAll: async () => {
-    const response = await axios.get(`${API_BASE}/News`);
+    const response = await apiClient.get(`${API_BASE}/News`);
     return response.data;
   },
   getTitles: async (): Promise<NewsTitle[]> => {
-    const response = await axios.get(`${API_BASE}/News/titles`);
+    const response = await apiClient.get(`${API_BASE}/News/titles`);
     return response.data;
   },
   getAllForAdmin: async (): Promise<NewsManagerItem[]> => {
-    const response = await axios.get(`${API_BASE}/News/admin/all`);
+    const response = await apiClient.get(`${API_BASE}/News/admin/all`);
     return response.data;
   },
   create: async (news: Omit<NewsManagerItem, 'id' | 'createdAt'>): Promise<NewsManagerItem> => {
-    const response = await axios.post(`${API_BASE}/News/admin/create`, news);
+    const response = await apiClient.post(`${API_BASE}/News/admin/create`, news);
     return response.data;
   },
   update: async (id: number, news: Partial<NewsManagerItem>): Promise<NewsManagerItem> => {
-    const response = await axios.put(`${API_BASE}/News/admin/${id}`, news);
+    const response = await apiClient.put(`${API_BASE}/News/admin/${id}`, news);
     return response.data;
   },
   delete: async (id: number): Promise<void> => {
-    await axios.delete(`${API_BASE}/News/admin/${id}`);
+    await apiClient.delete(`${API_BASE}/News/admin/${id}`);
   }
 };
 
 export const servicesApi = {
   getAll: async (): Promise<ServiceItem[]> => {
-    const response = await axios.get(`${API_BASE}/Services`);
+    const response = await apiClient.get(`${API_BASE}/Services`);
     return response.data;
   }
 };
 
 export const promotionsApi = {
   getAll: async (): Promise<PromotionItem[]> => {
-    const response = await axios.get(`${API_BASE}/Promotions`);
+    const response = await apiClient.get(`${API_BASE}/Promotions`);
     return response.data;
   },
 
   validateCode: async (code: string): Promise<PromotionValidationResult> => {
-    const response = await axios.get(`${API_BASE}/Promotions/validate/${encodeURIComponent(code)}`);
+    const response = await apiClient.get(`${API_BASE}/Promotions/validate/${encodeURIComponent(code)}`);
     return response.data;
   }
 };
 
 export const reviewApi = {
   getAll: async (): Promise<Review[]> => {
-    const response = await axios.get(`${API_BASE}/Reviews`);
+    const response = await apiClient.get(`${API_BASE}/Reviews`);
     return response.data;
   },
   getByProduct: async (productId: number): Promise<Review[]> => {
-    const response = await axios.get(`${API_BASE}/Reviews/product/${productId}`);
+    const response = await apiClient.get(`${API_BASE}/Reviews/product/${productId}`);
     return response.data;
   },
   getByRating: async (rating: number): Promise<Review[]> => {
-    const response = await axios.get(`${API_BASE}/Reviews/rating/${rating}`);
+    const response = await apiClient.get(`${API_BASE}/Reviews/rating/${rating}`);
     return response.data;
   }
 };
@@ -318,7 +326,7 @@ export const reviewApi = {
 export const supplierApi = {
   getAll: async (): Promise<Supplier[]> => {
     try {
-      const response = await axios.get(`${API_BASE}/Suppliers`);
+      const response = await apiClient.get(`${API_BASE}/Suppliers`);
       return response.data;
     } catch (error) {
       console.log('Supplier endpoint not available, returning empty array');
@@ -326,20 +334,20 @@ export const supplierApi = {
     }
   },
   create: async (supplier: Omit<Supplier, 'id'>): Promise<Supplier> => {
-    const response = await axios.post(`${API_BASE}/Suppliers`, supplier);
+    const response = await apiClient.post(`${API_BASE}/Suppliers`, supplier);
     return response.data;
   },
   update: async (id: number, supplier: Partial<Supplier>): Promise<Supplier> => {
-    const response = await axios.put(`${API_BASE}/Suppliers/${id}`, supplier);
+    const response = await apiClient.put(`${API_BASE}/Suppliers/${id}`, supplier);
     return response.data;
   },
   delete: async (id: number): Promise<void> => {
-    await axios.delete(`${API_BASE}/Suppliers/${id}`);
+    await apiClient.delete(`${API_BASE}/Suppliers/${id}`);
   }
 };
 export const statsApi = {
   getDashboard: async (range: string = '7days'): Promise<DashboardStatisticsResponse> => {
-    const response = await axios.get(`${API_BASE}/Statistics/dashboard`, {
+    const response = await apiClient.get(`${API_BASE}/Statistics/dashboard`, {
       params: { range },
     });
     return response.data;
