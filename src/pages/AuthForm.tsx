@@ -242,7 +242,7 @@ const AuthForm = () => {
               {loading || isSendingOtp ? "Đang xử lý..." : "Đăng ký ngay"}
             </button>
             
-            <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => toast.error("Google Auth Fail")} theme="outline" width="340px" text="signup_with" />
+            <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => toast.error("Google Auth Fail")} theme="outline" width="340px" text="signup_with" useOneTap={false} type="standard"/>
           </form>
           ) : (
           <form onSubmit={handleVerifyRegisterOtp} className="bg-white flex items-center justify-center flex-col px-10 h-full text-center">
@@ -298,7 +298,7 @@ const AuthForm = () => {
               {loading ? "Đang xác thực..." : "Đăng Nhập"}
             </button>
 
-            <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => toast.error("Google Auth Fail")} theme="outline" width="340px" text="signin_with" />
+            <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => toast.error("Google Auth Fail")} theme="outline" width="340px" text="signup_with" useOneTap={false} type="standard"/>
           </form>
         ) : (
           <div className="bg-white flex items-center justify-center flex-col px-10 h-full">
