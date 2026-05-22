@@ -192,7 +192,7 @@ const AuthForm = () => {
       try {
         const userId = data.user?.id || data.user?.Id;
         if (userId) {
-          const res = await axios.get(`${API_BASE}/api/wishlist/${userId}`);
+          const res = await axios.get(`${API_BASE}/wishlist/${userId}`);
           sessionStorage.setItem("wishlistVariantIds", JSON.stringify(res.data));
         }
       } catch (err) {
