@@ -28,7 +28,7 @@ const PromotionManager = () => {
   const fetchPromotions = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(API_BASE + '/api/promotions');
+      const response = await axios.get(API_BASE + '/promotions');
       setPromotions(response.data);
     } catch (error) {
       toast.error("Lỗi tải dữ liệu từ Server!");
@@ -83,10 +83,10 @@ const PromotionManager = () => {
 
     try {
       if (editingPromotion) {
-        await axios.put(`${API_BASE}/api/promotions/${editingPromotion.id}`, dataToSend);
+        await axios.put(`${API_BASE}/promotions/${editingPromotion.id}`, dataToSend);
         toast.success("Cập nhật thành công!");
       } else {
-        await axios.post(`${API_BASE}/api/promotions`, dataToSend);
+        await axios.post(`${API_BASE}/promotions`, dataToSend);
         toast.success("Thêm mới thành công!");
       }
       setIsModalOpen(false);
@@ -99,7 +99,7 @@ const PromotionManager = () => {
   const handleDelete = async (id: number) => {
     if (window.confirm("Bạn có chắc chắn muốn xóa mã khuyến mại này không?")) {
       try {
-        await axios.delete(`${API_BASE}/api/promotions/${id}`);
+        await axios.delete(`${API_BASE}/promotions/${id}`);
         toast.success("Đã xóa thành công!");
         fetchPromotions();
       } catch (error) { toast.error("Lỗi khi xóa!"); }

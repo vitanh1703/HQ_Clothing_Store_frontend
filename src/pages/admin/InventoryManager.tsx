@@ -24,7 +24,7 @@ const InventoryManager = () => {
     setLoading(true);
     try {
       // Gọi API lấy dữ liệu kho (nhớ kiểm tra route này ở backend)
-      const res = await axios.get(`${API_BASE}/api/promotions/inventory`);
+      const res = await axios.get(`${API_BASE}/promotions/inventory`);
       setWarehouseData(res.data);
     } catch (err) {
       toast.error("Lỗi kết nối Server!");
