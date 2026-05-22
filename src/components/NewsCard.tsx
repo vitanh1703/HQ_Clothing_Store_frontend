@@ -20,7 +20,7 @@ const NewsCard: React.FC<NewsCardProps & { id?: number }> = ({ id, category, tit
         <h3 className="text-lg font-black uppercase mb-3 leading-tight group-hover:underline transition-all">{title}</h3>
         <p className="text-gray-500 text-[11px] font-medium leading-relaxed line-clamp-2 mb-5 uppercase opacity-80">{desc}</p>
         <button className="text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-2 group/btn hover:text-gray-400">
-          Đọc thêm <ArrowRight size={12} className="group-hover/btn:translate-x-1 transition-transform" />
+          Đọc thêm  <ArrowRight size={12} className="group-hover/btn:translate-x-1 transition-transform" />
         </button>
       </div>
     </div>
