@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+/* Thiết lập các tùy chỉnh chung cho toàn bộ website */
+@layer base {
+  body {
+    /* Màu nền xám nhạt đặc trưng của bản thiết kế bạn gửi */
+    @apply bg-[#F5F5F5] text-black antialiased;
+    
+    /* Font chữ: Ưu tiên font sạch, hiện đại */
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Làm mượt các hiệu ứng chuyển màu khi hover vào nút */
+  * {
+    @apply transition-colors duration-200;
+  }
+}
+
+/* Nếu bạn muốn tạo các "Class dùng chung" để Hảo và Quỳnh dễ dùng */
+@layer components {
+  .btn-filter {
+    @apply px-4 py-1 text-[10px] border border-gray-300 font-bold uppercase hover:bg-black hover:text-white transition-all;
+  }
+
+  /* 1. Làm ẩn thanh cuộn hoàn toàn cho toàn bộ trang */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+/* 2. HOẶC làm thanh cuộn nhỏ lại và tinh tế hơn (kiểu Minimalist) */
+::-webkit-scrollbar {
+    width: 4px; /* Độ rộng thanh cuộn cực mỏng */
+  }
+
+::-webkit-scrollbar-track {
+    background: transparent; /* Nền thanh cuộn trong suốt */
+  }
+
+::-webkit-scrollbar-thumb {
+    background: #d1d5db; /* Màu của thanh trượt (xám nhạt) */
+    border-radius: 10px;
+ }
+
+::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af; /* Màu khi di chuột vào */
+ }
+}
