@@ -17,7 +17,7 @@ const PaymentCallback = () => {
     const updateOrderStatus = async () => {
       if (vnp_ResponseCode === "00" && vnp_TxnRef) {
         try {
-          await axios.put(`${API_BASE}/api/orders/${vnp_TxnRef}/status`, {
+          await axios.put(`${API_BASE}/orders/${vnp_TxnRef}/status`, {
             status: "Success"
           });
           setStatus("success");

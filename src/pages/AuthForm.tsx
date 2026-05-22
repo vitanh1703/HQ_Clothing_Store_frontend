@@ -62,7 +62,7 @@ const AuthForm = () => {
     if (isSendingOtp) return;
     setIsSendingOtp(true);
     try {
-      await axios.post(`${API_BASE}/api/auth/forgot-password`, { email: forgotEmail });
+      await axios.post(`${API_BASE}/auth/forgot-password`, { email: forgotEmail });
       toast.success("Mã OTP đã được gửi đến email của bạn!");
       setForgotStep(2);
       setCooldown(60);
@@ -76,7 +76,7 @@ const AuthForm = () => {
   const handleVerifyOtp = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post(`${API_BASE}/api/auth/verify-otp`, { email: forgotEmail, otp });
+      await axios.post(`${API_BASE}/auth/verify-otp`, { email: forgotEmail, otp });
       toast.success("Xác thực OTP thành công!");
       setForgotStep(3);
     } catch (err: any) {
@@ -88,7 +88,7 @@ const AuthForm = () => {
     e.preventDefault();
     if (newPassword.length < 6) return toast.error("Mật khẩu phải có ít nhất 6 ký tự!");
     try {
-      await axios.post(`${API_BASE}/api/auth/reset-password`, { email: forgotEmail, otp, newPassword });
+      await axios.post(`${API_BASE}/auth/reset-password`, { email: forgotEmail, otp, newPassword });
       toast.success("Cập nhật mật khẩu thành công! Vui lòng đăng nhập lại.");
       setForgotStep(0);
       setForgotEmail("");
@@ -143,7 +143,7 @@ const AuthForm = () => {
     if (isSendingOtp) return;
     setIsSendingOtp(true);
     try {
-      await axios.post(`${API_BASE}/api/auth/send-register-otp`, data);
+      await axios.post(`${API_BASE}/auth/send-register-otp`, data);
       setRegisterData(data);
       setRegisterStep(1);
       setRegisterCooldown(60);
@@ -158,7 +158,7 @@ const AuthForm = () => {
   const handleVerifyRegisterOtp = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post(`${API_BASE}/api/auth/verify-register-otp`, { email: registerData.email, otp: registerOtp });
+      await axios.post(`${API_BASE}/auth/verify-register-otp`, { email: registerData.email, otp: registerOtp });
       toast.success("Đăng ký thành công! Hãy đăng nhập nhé.");
       setIsRightPanelActive(false);
       setRegisterStep(0);
@@ -173,7 +173,7 @@ const AuthForm = () => {
     if (!registerData || isSendingOtp) return;
     setIsSendingOtp(true);
     try {
-      await axios.post(`${API_BASE}/api/auth/send-register-otp`, registerData);
+      await axios.post(`${API_BASE}/auth/send-register-otp`, registerData);
       setRegisterCooldown(60);
       toast.success("Mã OTP đã được gửi lại!");
     } catch (err: any) {

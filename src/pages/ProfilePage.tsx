@@ -59,7 +59,7 @@ const ProfilePage = () => {
     
     try {
       const userId = user.id || user.Id;
-      await axios.put(`${API_BASE}/api/users/${userId}/password`, {
+      await axios.put(`${API_BASE}/users/${userId}/password`, {
         currentPassword,
         newPassword
       });
@@ -79,7 +79,7 @@ const ProfilePage = () => {
 
     try {
       const userId = user.id || user.Id;
-      await axios.put(`${API_BASE}/api/users/${userId}/info`, {
+      await axios.put(`${API_BASE}/users/${userId}/info`, {
         fullName: editFullName,
         phone: editPhone,
         address: editAddress
