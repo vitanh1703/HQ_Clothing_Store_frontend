@@ -140,7 +140,7 @@ const OrderStatusUpdateModal = ({
 
     setIsUpdating(true);
     try {
-      await axios.put(`${API_BASE}/api/orders/${order.id}/status`, { status: newStatus });
+      await axios.put(`${API_BASE}/orders/${order.id}/status`, { status: newStatus });
       toast.success('Cập nhật trạng thái thành công');
       if (onOrderUpdated) {
         onOrderUpdated({ ...order, status: newStatus });

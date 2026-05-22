@@ -159,11 +159,11 @@ const CheckoutPage = () => {
         }))
       };
 
-      const response = await axios.post(`${API_BASE}/api/orders/create`, orderPayload);
+      const response = await axios.post(`${API_BASE}/orders/create`, orderPayload);
       const savedOrder = response.data; 
 
       if (paymentMethod === "vnpay") {
-        const paymentRes = await axios.post(`${API_BASE}/api/payment/create-payment`, {
+        const paymentRes = await axios.post(`${API_BASE}/payment/create-payment`, {
           orderId: savedOrder.id,
           amount: totalAfterDiscount
         });

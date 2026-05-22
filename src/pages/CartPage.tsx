@@ -49,7 +49,7 @@ const CartPage = () => {
 
   const fetchCart = async () => {
     try {
-      const res = await axios.get(`${API_BASE}/api/cart/${userId}`);
+      const res = await axios.get(`${API_BASE}/cart/${userId}`);
       setCart(res.data);
     } catch (err) {
       console.error("Lỗi lấy cart:", err);

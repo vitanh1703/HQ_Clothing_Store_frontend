@@ -37,7 +37,7 @@ const ProfilePage = () => {
       try {
         const userId = userData.user.id || userData.user.Id;
         if (userId) {
-          const res = await axios.get(`${API_BASE}/api/orders/user/${userId}`);
+          const res = await axios.get(`${API_BASE}/orders/user/${userId}`);
           setOrders(res.data);
         }
       } catch (error) {
