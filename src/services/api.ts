@@ -1,5 +1,5 @@
 import axios from "axios";
-export const API_BASE = (import.meta.env.VITE_API_URL || 'https://localhost:7137') + '/api';
+export const API_BASE = (import.meta.env.VITE_API_URL) + '/api';
 
 export interface Variant {
   id?: number;
