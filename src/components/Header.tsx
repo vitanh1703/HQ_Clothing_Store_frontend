@@ -161,7 +161,7 @@ const Header = () => {
             </div>
 
             <button onClick={() => { navigate("/aboutus"); setIsNavMenuOpen(false); }} className={`hover:text-black transition-colors shrink-0 ${location.pathname.startsWith('/aboutus') ? 'text-black' : ''}`}>
-              About us
+              Giới thiệu
             </button>
 
             <button onClick={() => navigate("/faq")} className="hover:text-gray-500 transition-colors ">
