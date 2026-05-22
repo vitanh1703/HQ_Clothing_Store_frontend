@@ -123,10 +123,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
     try {
       if (willAdd) {
-        await axios.post(`${API_BASE}/api/wishlist`, { userId, variantId });
+        await axios.post(`${API_BASE}/wishlist`, { userId, variantId });
         toast.success("Đã thêm vào danh sách yêu thích");
       } else {
-        await axios.delete(`${API_BASE}/api/wishlist/${userId}/${variantId}`);
+        await axios.delete(`${API_BASE}/wishlist/${userId}/${variantId}`);
         toast.info("Đã xóa khỏi danh sách yêu thích");
       }
       updateWishlistStorage(variantId, willAdd);
