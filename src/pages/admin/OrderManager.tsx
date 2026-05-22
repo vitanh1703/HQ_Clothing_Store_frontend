@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import AdminSidebar from '../../components/AdminSidebar';
 import { OrderDetailModal, OrderStatusUpdateModal } from '../../components/OrderModal';
 import type { Order } from '../../components/OrderModal';
+import { API_BASE } from '../../services/api';
 
 const OrderManager = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -17,12 +18,10 @@ const OrderManager = () => {
   const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
   const [filterStatus, setFilterStatus] = useState<string | null>(null);
 
-  const apiBase = 'https://localhost:7137/api';
-
   const fetchOrders = async () => {
     setLoading(true);
     try {
-      const response = await axios.get<Order[]>(`${apiBase}/orders/admin/all`);
+      const response = await axios.get<Order[]>(`${API_BASE}/orders/admin/all`);
       setOrders(response.data);
     } catch (error) {
       console.error('Lỗi khi tải đơn hàng', error);

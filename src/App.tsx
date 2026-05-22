@@ -32,6 +32,7 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import PromotionManager from './pages/admin/PromotionManager';
 import InventoryManager from './pages/admin/InventoryManager';
 import Statistics from './pages/admin/Statistics';
+import { API_BASE } from './services/api'; // Hãy điều chỉnh đường dẫn ../ cho đúng vị trí file
 
 const RootRedirect = () => {
   const auth = sessionStorage.getItem("auth");
@@ -57,7 +58,7 @@ const AdminRoute = ({ children }: { children: JSX.Element }) => {
         return;
       }
       try {
-        await axios.get(`https://localhost:7137/api/auth/verify-admin/${userId}`);
+        await axios.get(`${API_BASE}/auth/verify-admin/${userId}`);
         setIsAuthorized(true);
       } catch {
         setIsAuthorized(false);

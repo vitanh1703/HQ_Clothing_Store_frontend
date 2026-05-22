@@ -4,6 +4,7 @@ import { FiMenu, FiX } from 'react-icons/fi';
 import { Search, Trash2, Phone } from 'lucide-react';
 import AdminSidebar from '../../components/AdminSidebar';
 import CustomerModal from '../../components/CustomerModal';
+import { API_BASE } from '../../services/api';
 
 // --- Interface dữ liệu ---
 interface Customer {
@@ -36,12 +37,10 @@ const CustomerManager = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const apiBase = 'https://localhost:7137/api';
-
   const fetchCustomers = async () => {
     setLoading(true);
     try {
-      const response = await axios.get<Customer[]>(`${apiBase}/users`);
+      const response = await axios.get<Customer[]>(`${API_BASE}/users`);
       setCustomers(response.data);
     } catch (error) {
       console.error('Lỗi khi tải khách hàng', error);
@@ -56,7 +55,7 @@ const CustomerManager = () => {
 
   const handleOpenDetails = async (customer: Customer) => {
     try {
-      const response = await axios.get<OrderSummary[]>(`${apiBase}/orders/user/${customer.id}`);
+      const response = await axios.get<OrderSummary[]>(`${API_BASE}/orders/user/${customer.id}`);
       setSelectedOrders(response.data);
       setSelectedCustomer(customer);
       setIsModalOpen(true);
@@ -68,7 +67,7 @@ const CustomerManager = () => {
   const handleDeleteCustomer = async (id: number) => {
     if (window.confirm('Bạn có chắc muốn xóa khách hàng này?')) {
       try {
-        await axios.delete(`${apiBase}/users/${id}`);
+        await axios.delete(`${API_BASE}/users/${id}`);
         setCustomers(prev => prev.filter(c => c.id !== id));
       } catch (error) { console.error(error); }
     }

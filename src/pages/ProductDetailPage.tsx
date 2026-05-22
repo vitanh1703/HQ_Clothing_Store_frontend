@@ -2,6 +2,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { API_BASE } from '../services/api';
 
 interface Variant {
   id: number;
@@ -35,8 +36,6 @@ interface ReviewResponse {
   totalReviews: number;
   reviews: ReviewItem[];
 }
-
-const API_BASE = "https://localhost:7137/api";
 
 const renderStars = (rating: number) => {
   const rounded = Math.round(rating);

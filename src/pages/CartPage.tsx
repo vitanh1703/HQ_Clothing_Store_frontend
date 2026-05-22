@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { cartApi, promotionsApi } from "../services/api";
+import { API_BASE, cartApi, promotionsApi } from "../services/api";
 import type { PromotionItem, PromotionValidationResult } from "../services/api";
 import { PromoSelectionModal } from "../components/PromoSelectionModal";
 
@@ -49,7 +49,7 @@ const CartPage = () => {
 
   const fetchCart = async () => {
     try {
-      const res = await axios.get(`https://localhost:7137/api/cart/${userId}`);
+      const res = await axios.get(`${API_BASE}/api/cart/${userId}`);
       setCart(res.data);
     } catch (err) {
       console.error("Lỗi lấy cart:", err);

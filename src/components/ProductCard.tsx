@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import gsap from 'gsap';
 import { Heart } from 'lucide-react';
-import type { Product } from '../services/api';
+import { API_BASE, type Product } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -123,10 +123,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
     try {
       if (willAdd) {
-        await axios.post(`https://localhost:7137/api/wishlist`, { userId, variantId });
+        await axios.post(`${API_BASE}/api/wishlist`, { userId, variantId });
         toast.success("Đã thêm vào danh sách yêu thích");
       } else {
-        await axios.delete(`https://localhost:7137/api/wishlist/${userId}/${variantId}`);
+        await axios.delete(`${API_BASE}/api/wishlist/${userId}/${variantId}`);
         toast.info("Đã xóa khỏi danh sách yêu thích");
       }
       updateWishlistStorage(variantId, willAdd);

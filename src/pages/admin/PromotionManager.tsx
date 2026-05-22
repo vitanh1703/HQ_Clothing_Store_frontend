@@ -4,6 +4,7 @@ import { Search, Trash2, Edit2, Plus, X as CloseIcon } from 'lucide-react';
 import { FiX, FiMenu } from "react-icons/fi";
 import AdminSidebar from '../../components/AdminSidebar';
 import { toast } from 'react-toastify';
+import { API_BASE } from '../../services/api';
 
 const PromotionManager = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -24,12 +25,10 @@ const PromotionManager = () => {
     status: true
   });
 
-  const apiBase = 'https://localhost:7137/api/promotions';
-
   const fetchPromotions = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(apiBase);
+      const response = await axios.get(API_BASE + '/api/promotions');
       setPromotions(response.data);
     } catch (error) {
       toast.error("Lỗi tải dữ liệu từ Server!");
@@ -84,10 +83,10 @@ const PromotionManager = () => {
 
     try {
       if (editingPromotion) {
-        await axios.put(`${apiBase}/${editingPromotion.id}`, dataToSend);
+        await axios.put(`${API_BASE}/api/promotions/${editingPromotion.id}`, dataToSend);
         toast.success("Cập nhật thành công!");
       } else {
-        await axios.post(apiBase, dataToSend);
+        await axios.post(`${API_BASE}/api/promotions`, dataToSend);
         toast.success("Thêm mới thành công!");
       }
       setIsModalOpen(false);
@@ -100,7 +99,7 @@ const PromotionManager = () => {
   const handleDelete = async (id: number) => {
     if (window.confirm("Bạn có chắc chắn muốn xóa mã khuyến mại này không?")) {
       try {
-        await axios.delete(`${apiBase}/${id}`);
+        await axios.delete(`${API_BASE}/api/promotions/${id}`);
         toast.success("Đã xóa thành công!");
         fetchPromotions();
       } catch (error) { toast.error("Lỗi khi xóa!"); }

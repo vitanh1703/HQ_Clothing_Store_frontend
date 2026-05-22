@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Package } from 'lucide-react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { API_BASE } from '../services/api';
 
 export interface Order {
   id: number;
@@ -139,7 +140,7 @@ const OrderStatusUpdateModal = ({
 
     setIsUpdating(true);
     try {
-      await axios.put(`https://localhost:7137/api/orders/${order.id}/status`, { status: newStatus });
+      await axios.put(`${API_BASE}/api/orders/${order.id}/status`, { status: newStatus });
       toast.success('Cập nhật trạng thái thành công');
       if (onOrderUpdated) {
         onOrderUpdated({ ...order, status: newStatus });

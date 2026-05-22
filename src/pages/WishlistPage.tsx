@@ -5,6 +5,7 @@ import type { Product, Variant } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { API_BASE } from '../services/api';
 
 type WishlistItem = {
   id: number;
@@ -42,7 +43,7 @@ const WishlistPage = () => {
   useEffect(() => {
     const userId = getUserId();
     if (userId) {
-      axios.get(`https://localhost:7137/api/wishlist/${userId}`)
+      axios.get(`${API_BASE}/api/wishlist/${userId}`)
         .then((res) => {
           setWishlistVariantIds(res.data);
           sessionStorage.setItem("wishlistVariantIds", JSON.stringify(res.data));
@@ -104,7 +105,7 @@ const WishlistPage = () => {
 
     if (userId) {
       try {
-        await axios.delete(`https://localhost:7137/api/wishlist/${userId}/${variantId}`);
+        await axios.delete(`${API_BASE}/api/wishlist/${userId}/${variantId}`);
         updateLocalState();
       } catch (err) {
         console.error("Lỗi khi xóa khỏi DB:", err);

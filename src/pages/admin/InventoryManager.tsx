@@ -6,6 +6,7 @@ import {
 } from "react-icons/fi";
 import AdminSidebar from '../../components/AdminSidebar';
 import { toast } from 'react-toastify';
+import { API_BASE } from '../../services/api';
 
 const InventoryManager = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -23,7 +24,7 @@ const InventoryManager = () => {
     setLoading(true);
     try {
       // Gọi API lấy dữ liệu kho (nhớ kiểm tra route này ở backend)
-      const res = await axios.get('https://localhost:7137/api/promotions/inventory');
+      const res = await axios.get(`${API_BASE}/api/promotions/inventory`);
       setWarehouseData(res.data);
     } catch (err) {
       toast.error("Lỗi kết nối Server!");

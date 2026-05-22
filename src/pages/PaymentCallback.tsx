@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { CheckCircle, XCircle } from "lucide-react";
 import axios from "axios";
+import { API_BASE } from "../services/api";
 
 const PaymentCallback = () => {
   const [searchParams] = useSearchParams();
@@ -16,7 +17,7 @@ const PaymentCallback = () => {
     const updateOrderStatus = async () => {
       if (vnp_ResponseCode === "00" && vnp_TxnRef) {
         try {
-          await axios.put(`https://localhost:7137/api/orders/${vnp_TxnRef}/status`, {
+          await axios.put(`${API_BASE}/api/orders/${vnp_TxnRef}/status`, {
             status: "Success"
           });
           setStatus("success");

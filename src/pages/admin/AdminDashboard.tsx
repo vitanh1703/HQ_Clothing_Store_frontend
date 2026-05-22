@@ -4,8 +4,7 @@ import { toast } from 'react-toastify';
 import { FiMenu, FiX, FiUsers, FiBox, FiTag, FiBarChart, FiFileText, FiShoppingCart, FiSearch, FiTrendingUp } from 'react-icons/fi';
 import axios from 'axios';
 import AdminSidebar from '../../components/AdminSidebar';
-
-const API_BASE = "https://localhost:7137/api";
+import { API_BASE } from '../../services/api';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();

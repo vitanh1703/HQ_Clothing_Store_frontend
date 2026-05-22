@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE } from '../services/api';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const ProfilePage = () => {
       try {
         const userId = userData.user.id || userData.user.Id;
         if (userId) {
-          const res = await axios.get(`https://localhost:7137/api/orders/user/${userId}`);
+          const res = await axios.get(`${API_BASE}/api/orders/user/${userId}`);
           setOrders(res.data);
         }
       } catch (error) {
@@ -58,7 +59,7 @@ const ProfilePage = () => {
     
     try {
       const userId = user.id || user.Id;
-      await axios.put(`https://localhost:7137/api/users/${userId}/password`, {
+      await axios.put(`${API_BASE}/api/users/${userId}/password`, {
         currentPassword,
         newPassword
       });
@@ -78,7 +79,7 @@ const ProfilePage = () => {
 
     try {
       const userId = user.id || user.Id;
-      await axios.put(`https://localhost:7137/api/users/${userId}/info`, {
+      await axios.put(`${API_BASE}/api/users/${userId}/info`, {
         fullName: editFullName,
         phone: editPhone,
         address: editAddress

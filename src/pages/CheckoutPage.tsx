@@ -1,6 +1,6 @@
 ﻿import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { promotionsApi } from "../services/api";
+import { API_BASE, promotionsApi } from "../services/api";
 import type { CheckoutCartItem, CheckoutResponse, PromotionItem, PromotionValidationResult } from "../services/api";
 import { PromoSelectionModal } from "../components/PromoSelectionModal";
 import { checkoutController } from "../services/controller";
@@ -159,11 +159,11 @@ const CheckoutPage = () => {
         }))
       };
 
-      const response = await axios.post("https://localhost:7137/api/orders/create", orderPayload);
+      const response = await axios.post(`${API_BASE}/api/orders/create`, orderPayload);
       const savedOrder = response.data; 
 
       if (paymentMethod === "vnpay") {
-        const paymentRes = await axios.post("https://localhost:7137/api/payment/create-payment", {
+        const paymentRes = await axios.post(`${API_BASE}/api/payment/create-payment`, {
           orderId: savedOrder.id,
           amount: totalAfterDiscount
         });
