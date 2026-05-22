@@ -43,7 +43,7 @@ const WishlistPage = () => {
   useEffect(() => {
     const userId = getUserId();
     if (userId) {
-      axios.get(`${API_BASE}/api/wishlist/${userId}`)
+      axios.get(`${API_BASE}/wishlist/${userId}`)
         .then((res) => {
           setWishlistVariantIds(res.data);
           sessionStorage.setItem("wishlistVariantIds", JSON.stringify(res.data));
@@ -105,7 +105,7 @@ const WishlistPage = () => {
 
     if (userId) {
       try {
-        await axios.delete(`${API_BASE}/api/wishlist/${userId}/${variantId}`);
+        await axios.delete(`${API_BASE}/wishlist/${userId}/${variantId}`);
         updateLocalState();
       } catch (err) {
         console.error("Lỗi khi xóa khỏi DB:", err);
