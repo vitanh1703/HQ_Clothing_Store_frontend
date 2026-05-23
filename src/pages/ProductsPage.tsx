@@ -16,7 +16,7 @@ const buildRatingBucketMap = (summaries: Record<number, ReviewResponse>): Rating
   );
 
 const ProductsPage = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const categoryIdParam = searchParams.get("category");
   const categoryId = categoryIdParam ? Number(categoryIdParam) : undefined;
   const { products, loading, error } = useProducts(categoryId);
@@ -34,6 +34,7 @@ const ProductsPage = () => {
     minRating: null,
   });
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortOrder, setSortOrder] = useState<string>("default");
 
   // Rating summaries from product detail API
   const [productReviewSummaries, setProductReviewSummaries] = useState<Record<number, ReviewResponse>>({});
@@ -147,22 +148,49 @@ const ProductsPage = () => {
     });
   }, [products, filters, productRatingBuckets]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredProducts.length / itemsPerPage));
+  const sortedProducts = useMemo(() => {
+    const sorted = [...filteredProducts];
+    if (sortOrder === "price-asc") {
+      sorted.sort((a, b) => {
+        const minPriceA = a.variants?.length ? Math.min(...a.variants.map(v => Number(v.price))) : 0;
+        const minPriceB = b.variants?.length ? Math.min(...b.variants.map(v => Number(v.price))) : 0;
+        return minPriceA - minPriceB;
+      });
+    } else if (sortOrder === "price-desc") {
+      sorted.sort((a, b) => {
+        const minPriceA = a.variants?.length ? Math.min(...a.variants.map(v => Number(v.price))) : 0;
+        const minPriceB = b.variants?.length ? Math.min(...b.variants.map(v => Number(v.price))) : 0;
+        return minPriceB - minPriceA;
+      });
+    }
+    return sorted;
+  }, [filteredProducts, sortOrder]);
+
+  const totalPages = Math.max(1, Math.ceil(sortedProducts.length / itemsPerPage));
 
   const paginatedProducts = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
-    return filteredProducts.slice(startIndex, startIndex + itemsPerPage);
-  }, [filteredProducts, currentPage]);
+    return sortedProducts.slice(startIndex, startIndex + itemsPerPage);
+  }, [sortedProducts, currentPage]);
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [categoryId, filters.sizes, filters.colors, filters.minPrice, filters.maxPrice, filters.status, filters.minRating]);
+  }, [categoryId, filters.sizes, filters.colors, filters.minPrice, filters.maxPrice, filters.status, filters.minRating, sortOrder]);
 
   useEffect(() => {
     if (currentPage > totalPages) {
       setCurrentPage(totalPages);
     }
   }, [currentPage, totalPages]);
+
+  const handleCategoryClick = (id?: number) => {
+    if (id) {
+      searchParams.set("category", id.toString());
+    } else {
+      searchParams.delete("category");
+    }
+    setSearchParams(searchParams);
+  };
 
   if (error) return <div className="h-screen flex items-center justify-center text-red-500 uppercase font-black tracking-tight">Error: {error}</div>;
 
@@ -181,6 +209,45 @@ const ProductsPage = () => {
               </p>
             )}
           </div>
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">Sắp xếp:</span>
+            <select
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value)}
+              className="border border-gray-200 rounded-lg text-[10px] font-bold uppercase tracking-widest px-3 py-2 outline-none focus:border-black transition-colors bg-white text-black cursor-pointer"
+            >
+              <option value="default">Mặc định</option>
+              <option value="price-asc">Giá: Thấp đến cao</option>
+              <option value="price-desc">Giá: Cao đến thấp</option>
+            </select>
+          </div>
+        </div>
+        
+        {/* Danh mục sản phẩm */}
+        <div className="flex gap-3 overflow-x-auto pt-6 scrollbar-hide">
+          <button
+            onClick={() => handleCategoryClick()}
+            className={`whitespace-nowrap px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.1em] transition-all duration-300 ${
+              !categoryId
+                ? "bg-black text-white shadow-lg"
+                : "bg-white text-gray-500 border border-gray-200 hover:border-black hover:text-black"
+            }`}
+          >
+            Tất cả
+          </button>
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => handleCategoryClick(cat.id)}
+              className={`whitespace-nowrap px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.1em] transition-all duration-300 ${
+                categoryId === cat.id
+                  ? "bg-black text-white shadow-lg"
+                  : "bg-white text-gray-500 border border-gray-200 hover:border-black hover:text-black"
+              }`}
+            >
+              {cat.name}
+            </button>
+          ))}
         </div>
       </header>
 
@@ -198,7 +265,7 @@ const ProductsPage = () => {
           <div className="flex-1 overflow-y-auto pr-4 pb-24 scrollbar-thin">
             {loading ? (
               <div className="flex h-full items-center justify-center text-[11px] font-black uppercase tracking-[0.4em] text-gray-300 animate-pulse">Loading Collection...</div>
-            ) : filteredProducts.length === 0 ? (
+            ) : sortedProducts.length === 0 ? (
               <div className="flex h-full items-center justify-center flex-col gap-4">
                 <div className="text-[11px] font-black uppercase tracking-[0.4em] text-gray-300">
                   Không có sản phẩm phù hợp
@@ -210,7 +277,7 @@ const ProductsPage = () => {
             ) : (
               <>
                 <div className="text-[9px] text-gray-400 font-bold mb-4">
-                  Tìm thấy <span className="text-black font-bold">{filteredProducts.length}</span> sản phẩm
+                  Tìm thấy <span className="text-black font-bold">{sortedProducts.length}</span> sản phẩm
                 </div>
                 <div className="grid gap-x-10 gap-y-14 transition-all duration-700 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                   {paginatedProducts.map((item) => (
