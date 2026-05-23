@@ -36,6 +36,7 @@ import { API_BASE } from './services/api'; // Hãy điều chỉnh đường d�
 import PromotionsPage from './pages/PromotionsPage';
 import OrderHistoryPage from './pages/OrderHistoryPage';
 import OrderDetailPage from './pages/OrderDetailPage';
+import { AIChatbot } from './components/AIChatbot';
 
 const RootRedirect = () => {
   const auth = sessionStorage.getItem("auth");
@@ -131,6 +132,7 @@ function App() {
       </div>
 
       {!isHideLayout && <Footer />}
+      <AIChatbot />
     </div>
   );
 }
