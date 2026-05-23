@@ -16,6 +16,8 @@ export interface Order {
   status: string;
   orderDate: string;
   paymentDate?: string;
+  items?: any[];
+  orderDetails?: any[];
 }
 
 interface OrderDetailModalProps {
@@ -26,6 +28,7 @@ interface OrderDetailModalProps {
   formatDate: (dateString: string) => string;
   getStatusColor: (status: string) => string;
   getStatusLabel: (status: string) => string;
+  onPayNow?: (order: Order) => void;
 }
 
 interface OrderStatusUpdateModalProps {
@@ -43,7 +46,8 @@ const OrderDetailModal = ({
   formatCurrency,
   formatDate,
   getStatusColor,
-  getStatusLabel
+  getStatusLabel,
+  onPayNow
 }: OrderDetailModalProps) => {
   if (!isOpen || !order) return null;
 
@@ -111,13 +115,47 @@ const OrderDetailModal = ({
           )}
         </div>
 
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="w-full px-4 py-2 bg-gray-200 text-gray-800 rounded-lg font-bold hover:bg-gray-300 transition-colors"
-        >
-          Đóng
-        </button>
+        {/* Danh sách sản phẩm (nếu có) */}
+        {((order.items && order.items.length > 0) || (order.orderDetails && order.orderDetails.length > 0)) && (
+          <div className="mb-8 border-t border-gray-100 pt-4">
+            <div className="text-sm font-bold text-gray-900 mb-3">Sản phẩm trong đơn</div>
+            <div className="space-y-3 max-h-40 overflow-y-auto pr-2 scrollbar-thin">
+              {((order.items || order.orderDetails) as any[]).map((item, idx) => (
+                <div key={idx} className="flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
+                  <div>
+                    <div className="font-semibold text-sm text-gray-800 line-clamp-1">{item.productName || item.product?.name || 'Sản phẩm'}</div>
+                    <div className="text-xs text-gray-500 mt-1">
+                      {item.color && <span>Màu: {item.color} </span>}
+                      {item.size && <span>| Size: {item.size} </span>}
+                      <span className="ml-1 font-bold text-black">x{item.quantity}</span>
+                    </div>
+                  </div>
+                  <div className="font-bold text-sm text-gray-900 shrink-0 ml-4">
+                    {formatCurrency((item.priceAtPurchase || item.price || 0) * (item.quantity || 1))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Action Buttons */}
+        <div className="flex gap-3 mt-6">
+          <button
+            onClick={onClose}
+            className="flex-1 px-4 py-3 bg-gray-200 text-gray-800 rounded-lg font-bold hover:bg-gray-300 transition-colors"
+          >
+            Đóng
+          </button>
+          {onPayNow && order.status === 'Pending' && (
+            <button
+              onClick={() => onPayNow(order)}
+              className="flex-1 px-4 py-3 bg-black text-white rounded-lg font-bold hover:bg-gray-800 transition-colors uppercase text-sm tracking-wider"
+            >
+              Thanh toán ngay
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

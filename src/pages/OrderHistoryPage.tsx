@@ -3,20 +3,16 @@ import axios from 'axios';
 import { Package, Clock, CheckCircle, XCircle, Truck, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { API_BASE } from '../services/api';
+import OrderDetailModal, { type Order } from '../components/OrderModal';
 
-interface Order {
-  id: number;
-  orderCode: string;
-  totalAmount: number;
-  status: string;
-  orderDate: string;
-}
 
 const OrderHistoryPage: React.FC = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
   const navigate = useNavigate();
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -54,6 +50,50 @@ const OrderHistoryPage: React.FC = () => {
         return { label: 'Đã hủy', color: 'text-red-700 bg-red-100', icon: XCircle };
       default:
         return { label: status, color: 'text-gray-700 bg-gray-100', icon: Package };
+    }
+  };
+
+  const formatCurrency = (amount: number) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', maximumFractionDigits: 0 }).format(amount);
+  const formatDate = (dateString: string) => new Date(dateString).toLocaleDateString('vi-VN', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+  
+  const handlePayNow = (order: Order) => {
+    navigate("/payment", {
+      state: {
+        checkoutData: {
+          id: order.id,
+          orderCode: order.orderCode,
+          cartId: 0,
+          items: (order.items || order.orderDetails || []).map((item: any) => ({
+            id: item.id || 0,
+            variantId: item.variantId || 0,
+            productId: item.productId || 0,
+            productName: item.productName || item.product?.name || 'Sản phẩm',
+            size: item.size || '',
+            color: item.color || '',
+            price: item.priceAtPurchase || item.price || 0,
+            quantity: item.quantity || 1,
+            total: (item.priceAtPurchase || item.price || 0) * (item.quantity || 1),
+            image: item.image || item.product?.imageUrl || ''
+          })),
+        },
+        totalAmount: order.totalAmount,
+        form: {
+          fullName: order.fullName,
+          email: order.email,
+          phone: order.phone,
+          address: order.address
+        }
+      }
+    });
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'Success': return 'bg-green-50 text-green-600 border-green-200';
+      case 'Pending': return 'bg-yellow-50 text-yellow-600 border-yellow-200';
+      case 'Shipping': return 'bg-blue-50 text-blue-600 border-blue-200';
+      case 'Cancel': return 'bg-red-50 text-red-600 border-red-200';
+      default: return 'bg-gray-50 text-gray-600 border-gray-200';
     }
   };
 
@@ -107,12 +147,45 @@ const OrderHistoryPage: React.FC = () => {
                   
                   <div className="flex flex-col items-end gap-3 mt-4 sm:mt-0 w-full sm:w-auto border-t sm:border-t-0 border-gray-100 pt-4 sm:pt-0">
                     <span className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest flex items-center gap-2 ${statusInfo.color}`}><StatusIcon className="w-4 h-4" />{statusInfo.label}</span>
+                    <div className="flex items-center gap-4 mt-2">
+                      {order.status === 'Pending' && (
+                        <button
+                          onClick={() => handlePayNow(order)}
+                          className="text-[10px] font-bold uppercase tracking-widest bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition-colors"
+                        >
+                          Thanh toán
+                        </button>
+                      )}
+                      <button
+                        onClick={() => {
+                          setSelectedOrder(order);
+                          setIsModalOpen(true);
+                        }}
+                        className="text-xs font-bold uppercase tracking-widest border-b border-black pb-0.5 hover:text-gray-500 transition-colors"
+                      >
+                        Xem chi tiết
+                      </button>
+                    </div>
                   </div>
                 </div>
               );
             })}
           </div>
         )}
+        
+        <OrderDetailModal
+          isOpen={isModalOpen}
+          onClose={() => {
+            setIsModalOpen(false);
+            setSelectedOrder(null);
+          }}
+          order={selectedOrder}
+          formatCurrency={formatCurrency}
+          formatDate={formatDate}
+          getStatusColor={getStatusColor}
+          getStatusLabel={(status) => getStatusInfo(status).label}
+          onPayNow={handlePayNow}
+        />
       </div>
     </div>
   );
