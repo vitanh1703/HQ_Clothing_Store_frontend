@@ -10,22 +10,16 @@ export default function OrderDetailPage() {
   const navigate = useNavigate();
   const location = useLocation();
   
-  const [order, setOrder] = useState<Order | null>(location.state?.order || null);
-  const [loading, setLoading] = useState(!order);
+  const [order, setOrder] = useState<Order | null>(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    if (!order && id) {
+    if (id) {
       const fetchOrder = async () => {
         try {
-          const userId = sessionStorage.getItem('userId');
-          const res = await axios.get(`${API_BASE}/orders/user/${userId}`);
-          const foundOrder = res.data.find((o: Order) => o.id.toString() === id);
-          if (foundOrder) {
-            setOrder(foundOrder);
-          } else {
-            setError("Không tìm thấy đơn hàng");
-          }
+          const res = await axios.get(`${API_BASE}/orders/${id}`);
+          setOrder(res.data);
         } catch (err) {
           setError("Lỗi tải thông tin đơn hàng");
         } finally {
@@ -34,7 +28,7 @@ export default function OrderDetailPage() {
       };
       fetchOrder();
     }
-  }, [id, order]);
+  }, [id]);
 
   const getStatusInfo = (status: string) => {
     switch (status) {

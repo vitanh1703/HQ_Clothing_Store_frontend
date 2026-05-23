@@ -35,9 +35,14 @@ const OrderManager = () => {
     fetchOrders();
   }, []);
 
-  const handleViewDetails = (order: Order) => {
-    setSelectedOrder(order);
-    setIsDetailModalOpen(true);
+  const handleViewDetails = async (order: Order) => {
+    try {
+      const res = await axios.get(`${API_BASE}/orders/${order.id}`);
+      setSelectedOrder(res.data);
+      setIsDetailModalOpen(true);
+    } catch (error) {
+      toast.error('Không thể tải chi tiết đơn hàng');
+    }
   };
 
   const handleEditStatus = (order: Order) => {

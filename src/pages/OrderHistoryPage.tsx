@@ -56,35 +56,41 @@ const OrderHistoryPage: React.FC = () => {
   const formatCurrency = (amount: number) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', maximumFractionDigits: 0 }).format(amount);
   const formatDate = (dateString: string) => new Date(dateString).toLocaleDateString('vi-VN', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
   
-  const handlePayNow = (order: Order) => {
-    navigate("/payment", {
-      state: {
-        checkoutData: {
-          id: order.id,
-          orderCode: order.orderCode,
-          cartId: 0,
-          items: (order.items || order.orderDetails || []).map((item: any) => ({
-            id: item.id || 0,
-            variantId: item.variantId || 0,
-            productId: item.productId || 0,
-            productName: item.productName || item.product?.name || 'Sản phẩm',
-            size: item.size || '',
-            color: item.color || '',
-            price: item.priceAtPurchase || item.price || 0,
-            quantity: item.quantity || 1,
-            total: (item.priceAtPurchase || item.price || 0) * (item.quantity || 1),
-            image: item.image || item.product?.imageUrl || ''
-          })),
-        },
-        totalAmount: order.totalAmount,
-        form: {
-          fullName: order.fullName,
-          email: order.email,
-          phone: order.phone,
-          address: order.address
+  const handlePayNow = async (orderId: number) => {
+    try {
+      const res = await axios.get(`${API_BASE}/orders/${orderId}`);
+      const fullOrder = res.data;
+      navigate("/payment", {
+        state: {
+          checkoutData: {
+            id: fullOrder.id,
+            orderCode: fullOrder.orderCode,
+            cartId: 0,
+            items: (fullOrder.items || fullOrder.orderDetails || []).map((item: any) => ({
+              id: item.id || 0,
+              variantId: item.variantId || 0,
+              productId: item.productId || 0,
+              productName: item.productName || item.product?.name || 'Sản phẩm',
+              size: item.size || '',
+              color: item.color || '',
+              price: item.priceAtPurchase || item.price || 0,
+              quantity: item.quantity || 1,
+              total: (item.priceAtPurchase || item.price || 0) * (item.quantity || 1),
+              image: item.image || item.product?.imageUrl || ''
+            })),
+          },
+          totalAmount: fullOrder.totalAmount,
+          form: {
+            fullName: fullOrder.fullName,
+            email: fullOrder.email,
+            phone: fullOrder.phone,
+            address: fullOrder.address
+          }
         }
-      }
-    });
+      });
+    } catch (err) {
+      alert("Không thể tải thông tin thanh toán");
+    }
   };
 
   const getStatusColor = (status: string) => {
@@ -150,7 +156,7 @@ const OrderHistoryPage: React.FC = () => {
                     <div className="flex items-center gap-4 mt-2">
                       {order.status === 'Pending' && (
                         <button
-                          onClick={() => handlePayNow(order)}
+                          onClick={() => handlePayNow(order.id)}
                           className="text-[10px] font-bold uppercase tracking-widest bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition-colors"
                         >
                           Thanh toán
