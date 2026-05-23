@@ -39,13 +39,13 @@ const Home = () => {
 
   return (
     <div className="bg-[#F5F5F5] min-h-[calc(100vh-70px)] font-sans text-black overflow-hidden select-none">
-      <main className="grid grid-cols-10 gap-0 px-20 pt-24 items-start mb-20">
-        <div className="col-span-4 flex flex-col pt-4">
-          <div className="mb-24"> 
-            <h1 className="text-[95px] font-[1000] uppercase leading-none tracking-[-0.05em] mb-8">
-              Bộ Sưu Tập <br/>Mới Nhất
+      <main className="grid grid-cols-1 lg:grid-cols-10 gap-0 px-6 lg:px-20 pt-16 lg:pt-24 items-start mb-16 lg:mb-20">
+        <div className="col-span-1 lg:col-span-4 flex flex-col pt-4 order-2 lg:order-1 mt-10 lg:mt-0">
+          <div className="mb-12 lg:mb-24"> 
+            <h1 className="text-5xl lg:text-[95px] font-[1000] uppercase leading-none tracking-tighter mb-4 lg:mb-8">
+              Bộ Sưu Tập <br className="hidden lg:block"/>Mới Nhất
             </h1>
-            <p className="text-gray-400 font-bold text-[12px] tracking-[0.3em] uppercase opacity-80">
+            <p className="text-gray-400 font-bold text-[10px] lg:text-[12px] tracking-[0.3em] uppercase opacity-80">
               Mùa Hè 2026
             </p>
           </div>
@@ -67,7 +67,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="col-span-6 overflow-hidden pt-2 pl-4">
+        <div className="col-span-1 lg:col-span-6 overflow-hidden pt-2 pl-0 lg:pl-4 order-1 lg:order-2">
           <div 
             className="flex transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] gap-5" 
             style={{ transform: `translateX(-${currentIndex * 51}%)` }}
@@ -85,27 +85,27 @@ const Home = () => {
         </div>
       </main>
 
-      <section className="px-20 pb-32 bg-white pt-24">
-        <div className="flex justify-between items-end mb-12">
-          <h2 className="text-5xl font-[1000] uppercase leading-[0.8] tracking-tighter">
+      <section className="px-6 lg:px-20 pb-16 lg:pb-32 bg-white pt-16 lg:pt-24">
+        <div className="flex justify-between items-end mb-8 lg:mb-12">
+          <h2 className="text-3xl lg:text-5xl font-[1000] uppercase leading-[0.8] tracking-tighter">
             Hàng Mới<span className="text-blue-600 text-sm align-top ml-1 font-bold">({products.length})</span>
           </h2>
           <button 
             onClick={() => navigate("/products")} 
-            className="text-[11px] font-bold uppercase border-b border-black pb-0.5 hover:text-gray-400 transition-colors"
+            className="text-[11px] font-bold uppercase border-b border-black pb-0.5 hover:text-gray-400 transition-colors whitespace-nowrap"
           >
             Xem tất cả
           </button>
         </div>
         
         {loading ? (
-          <div className="grid grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
              {[...Array(4)].map((_, i) => (
                <div key={i} className="aspect-3/4 bg-gray-100 animate-pulse rounded-sm"></div>
              ))}
           </div>
         ) : (
-          <div className="grid grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
             {products.slice(0, 4).map((product) => (
               <ProductCard 
                 key={product.id} 
@@ -117,34 +117,34 @@ const Home = () => {
         )}
       </section>
 
-      <section className="py-32 px-20 bg-[#F5F5F5]">
-        <div className="max-w-4xl mx-auto text-center mb-24">
-          <h2 className="text-5xl font-[1000] uppercase tracking-[-0.02em] mb-8 leading-tight">
+      <section className="py-16 lg:py-32 px-6 lg:px-20 bg-[#F5F5F5]">
+        <div className="max-w-4xl mx-auto text-center mb-12 lg:mb-24">
+          <h2 className="text-3xl lg:text-5xl font-[1000] uppercase tracking-[-0.02em] mb-4 lg:mb-8 leading-tight">
             Tư Duy Thiết Kế Của Chúng Tôi
           </h2>
-          <p className="text-gray-500 text-[13px] font-medium uppercase tracking-[0.15em] leading-relaxed max-w-2xl mx-auto opacity-70">
+          <p className="text-gray-500 text-[11px] lg:text-[13px] font-medium uppercase tracking-[0.15em] leading-relaxed max-w-2xl mx-auto opacity-70">
             Tại H&Q Store, chúng tôi kết hợp sự sáng tạo với tay nghề thủ công bậc thầy để tạo ra 
             những thiết kế vượt thời gian. Mỗi sản phẩm đều được chăm chút tỉ mỉ, 
             đảm bảo chất lượng cao nhất và độ hoàn thiện tinh xảo.
           </p>
         </div>
-        <div className="grid grid-cols-4 gap-8 items-center">
-          <div className="col-span-1 mt-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8 items-center">
+          <div className="col-span-1 mt-0 lg:mt-20">
             <div className="aspect-1500/2000 overflow-hidden rounded-sm shadow-sm">
               <img src={approachImages[0]} alt="Design 1" className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0" />
             </div>
           </div>
-          <div className="col-span-1 mb-20">
+          <div className="col-span-1 mb-0 lg:mb-20">
             <div className="aspect-1500/2000 overflow-hidden rounded-sm shadow-sm">
               <img src={approachImages[1]} alt="Design 2" className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0" />
             </div>
           </div>
-          <div className="col-span-1 mt-10">
+          <div className="col-span-1 mt-0 lg:mt-10">
             <div className="aspect-1500/2000 overflow-hidden rounded-sm shadow-sm">
               <img src={approachImages[2]} alt="Design 3" className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0" />
             </div>
           </div>
-          <div className="col-span-1 -mt-10">
+          <div className="col-span-1 mt-0 lg:-mt-10">
             <div className="aspect-1500/2000 overflow-hidden rounded-sm shadow-sm">
               <img src={approachImages[3]} alt="Design 4" className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0" />
             </div>
@@ -152,15 +152,15 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="relative py-32 bg-fixed bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=2000')" }}>
+      <section className="relative py-16 lg:py-32 bg-fixed bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=2000')" }}>
         <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px]"></div>
-        <div className="container mx-auto px-20 relative z-10">
-          <div className="text-center mb-20 text-white">
-            <h2 className="text-4xl font-[1000] uppercase tracking-tighter mb-4">Dịch vụ đặc quyền</h2>
+        <div className="container mx-auto px-6 lg:px-20 relative z-10">
+          <div className="text-center mb-12 lg:mb-20 text-white">
+            <h2 className="text-2xl lg:text-4xl font-[1000] uppercase tracking-tighter mb-4">Dịch vụ đặc quyền</h2>
             <div className="w-12 h-0.5 bg-white mx-auto opacity-50"></div>
-            <p className="text-gray-300 text-xs uppercase tracking-[0.3em] mt-6">H&Q Store cam kết mang lại trải nghiệm mua sắm đẳng cấp</p>
+            <p className="text-gray-300 text-[10px] lg:text-xs uppercase tracking-[0.3em] mt-6">H&Q Store cam kết mang lại trải nghiệm mua sắm đẳng cấp</p>
           </div>
-          <div className="grid grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
             {servicesLoading ? (
               [...Array(4)].map((_, i) => (
                 <div key={i} className="h-40 bg-gray-100 animate-pulse rounded-sm"></div>
@@ -175,22 +175,22 @@ const Home = () => {
       </section>
 
       {/* --- SECTION 5: PROMOTIONS (KHUYẾN MÃI) --- */}
-      <section className="py-32 px-20 bg-[#F5F5F5]">
-        <div className="flex justify-between items-center mb-20 pb-8 border-b border-gray-200">
+      <section className="py-16 lg:py-32 px-6 lg:px-20 bg-[#F5F5F5]">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-10 lg:mb-20 pb-8 border-b border-gray-200 gap-6 lg:gap-0">
           <div>
             <p className="text-[10px] font-black uppercase tracking-widest text-red-500 mb-3 flex items-center gap-2">
               <span className="inline-block w-2 h-2 bg-red-500 rounded-full"></span>
               Đặc Biệt & HOT
             </p>
-            <h2 className="text-6xl font-[1000] uppercase leading-tight tracking-tighter text-black">
-              Khuyến Mãi<br /><span className="text-red-500">Hôm Nay</span>
+            <h2 className="text-4xl lg:text-6xl font-[1000] uppercase leading-tight tracking-tighter text-black">
+              Khuyến Mãi<br className="hidden lg:block" /> <span className="text-red-500">Hôm Nay</span>
             </h2>
           </div>
-          <button className="text-[11px] font-black uppercase px-6 py-3 border-2 border-red-500 text-red-500 rounded-full hover:bg-red-500 hover:text-white transition-all duration-300 hover:shadow-lg">
+          <button className="text-[10px] lg:text-[11px] font-black uppercase px-6 py-3 border-2 border-red-500 text-red-500 rounded-full hover:bg-red-500 hover:text-white transition-all duration-300 hover:shadow-lg whitespace-nowrap">
             Xem tất cả
           </button>
         </div>
-        <div className="grid grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {promotionsLoading ? (
             [...Array(3)].map((_, i) => (
               <div key={i} className="h-96 bg-gray-200 animate-pulse rounded-lg"></div>
@@ -210,15 +210,15 @@ const Home = () => {
       </section>
 
       {/* --- SECTION 6: NEWS (TIN TỨC & SỰ KIỆN) --- */}
-      <section className="py-32 px-20 bg-white">
-        <div className="flex justify-between items-end mb-16">
+      <section className="py-16 lg:py-32 px-6 lg:px-20 bg-white">
+        <div className="flex justify-between items-end mb-10 lg:mb-16">
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-400 mb-2">Tạp Chí</p>
-            <h2 className="text-5xl font-[1000] uppercase leading-[0.8] tracking-tighter">Tin tức<br />& Sự kiện</h2>
+            <h2 className="text-3xl lg:text-5xl font-[1000] uppercase leading-[0.8] tracking-tighter">Tin tức<br className="hidden lg:block"/> & Sự kiện</h2>
           </div>
-          <button onClick={() => navigate("/news")} className="text-[11px] font-bold uppercase border-b border-black pb-1 hover:text-gray-400">Xem tất cả</button>
+          <button onClick={() => navigate("/news")} className="text-[11px] font-bold uppercase border-b border-black pb-1 hover:text-gray-400 whitespace-nowrap">Xem tất cả</button>
         </div>
-        <div className="grid grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
           {newsLoading ? (
             [...Array(3)].map((_, i) => (
               <div key={i} className="h-80 bg-gray-100 animate-pulse rounded-sm"></div>
