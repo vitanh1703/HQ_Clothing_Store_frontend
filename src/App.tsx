@@ -35,6 +35,7 @@ import Statistics from './pages/admin/Statistics';
 import { API_BASE } from './services/api'; // Hãy điều chỉnh đường dẫn ../ cho đúng vị trí file
 import PromotionsPage from './pages/PromotionsPage';
 import OrderHistoryPage from './pages/OrderHistoryPage';
+import OrderDetailPage from './pages/OrderDetailPage';
 
 const RootRedirect = () => {
   const auth = sessionStorage.getItem("auth");
@@ -103,6 +104,7 @@ function App() {
           <Route path="/wishlist" element={<WishlistPage />} />
           <Route path="/promotions" element={<PromotionsPage />} />
           <Route path="/orders-history" element={<OrderHistoryPage />} />
+          <Route path="/orders-history/:id" element={<OrderDetailPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/payment" element={<PaymentPage />} />

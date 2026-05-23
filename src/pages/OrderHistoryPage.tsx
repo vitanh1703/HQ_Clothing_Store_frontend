@@ -158,8 +158,7 @@ const OrderHistoryPage: React.FC = () => {
                       )}
                       <button
                         onClick={() => {
-                          setSelectedOrder(order);
-                          setIsModalOpen(true);
+                          navigate(`/orders-history/${order.id}`, { state: { order } });
                         }}
                         className="text-xs font-bold uppercase tracking-widest border-b border-black pb-0.5 hover:text-gray-500 transition-colors"
                       >
@@ -172,20 +171,6 @@ const OrderHistoryPage: React.FC = () => {
             })}
           </div>
         )}
-        
-        <OrderDetailModal
-          isOpen={isModalOpen}
-          onClose={() => {
-            setIsModalOpen(false);
-            setSelectedOrder(null);
-          }}
-          order={selectedOrder}
-          formatCurrency={formatCurrency}
-          formatDate={formatDate}
-          getStatusColor={getStatusColor}
-          getStatusLabel={(status) => getStatusInfo(status).label}
-          onPayNow={handlePayNow}
-        />
       </div>
     </div>
   );
