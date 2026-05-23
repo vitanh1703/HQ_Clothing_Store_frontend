@@ -48,7 +48,7 @@ const OrderDetailModal = ({
   if (!isOpen || !order) return null;
 
   return (
-    <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white rounded-xl shadow-2xl p-8 max-w-lg w-full mx-4">
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
@@ -63,7 +63,7 @@ const OrderDetailModal = ({
             <div className="text-2xl font-bold text-teal-600">{order.orderCode}</div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <div className="text-sm text-gray-600">Khách hàng</div>
               <div className="font-bold text-gray-900">{order.fullName}</div>
@@ -162,7 +162,7 @@ const OrderStatusUpdateModal = ({
   if (!isOpen || !order) return null;
 
   return (
-    <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white rounded-xl shadow-2xl p-8 max-w-lg w-full mx-4">
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
@@ -192,7 +192,7 @@ const OrderStatusUpdateModal = ({
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <button
             onClick={handleUpdateStatus}
             disabled={isUpdating}

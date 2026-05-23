@@ -280,24 +280,24 @@ const AdminDashboard = () => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="bg-gray-900 shadow-xl px-8 py-6 flex items-center gap-4">
+        <div className="bg-gray-900 shadow-xl px-4 py-4 md:px-8 md:py-6 flex items-center gap-4">
           <button 
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="p-2 hover:bg-gray-700 text-white rounded-lg transition duration-200"
           >
             {sidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
-          <h1 className="text-3xl font-bold text-white">HQ Clothing Store - Hệ thống Quản lý</h1>
+          <h1 className="text-xl md:text-3xl font-bold text-white truncate">HQ Clothing Store - Hệ thống Quản lý</h1>
         </div>
 
         {/* Content Area */}
-        <div className="flex-1 overflow-auto p-8">
+        <div className="flex-1 overflow-auto p-4 md:p-8">
           {/* Title & Search */}
-          <div className="mb-8">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Bảng điều khiển</h2>
+          <div className="mb-6 md:mb-8">
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4 md:mb-6">Bảng điều khiển</h2>
             
             {/* Search Bar */}
-            <div className="relative mb-8">
+            <div className="relative mb-6 md:mb-8">
               <FiSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
               <input
                 type="text"
@@ -310,7 +310,7 @@ const AdminDashboard = () => {
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8 md:mb-12">
             {stats.map((stat, index) => {
               const Icon = stat.icon;
               const colorMap: any = {

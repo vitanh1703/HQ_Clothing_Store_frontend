@@ -95,18 +95,18 @@ const CustomerManager = () => {
       <div className="flex-1 flex flex-col h-full overflow-hidden">
         
         {/* Header đen chuẩn theo hình trang nhà cung cấp */}
-        <div className="bg-gray-900 shadow-xl px-8 py-6 flex items-center gap-4">
+        <div className="bg-gray-900 shadow-xl px-4 py-4 md:px-8 md:py-6 flex items-center gap-4">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="p-2 hover:bg-gray-700 text-white rounded-lg transition duration-200"
           >
             {sidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
-          <h1 className="text-3xl font-bold text-white">Quản lý Khách hàng</h1>
+          <h1 className="text-xl md:text-3xl font-bold text-white truncate">Quản lý Khách hàng</h1>
         </div>
 
         {/* Vùng Main Content */}
-        <main className="flex-1 overflow-y-auto p-8 bg-white">
+        <main className="flex-1 overflow-y-auto p-4 md:p-8 bg-white">
           <div className="max-w-7xl mx-auto">
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-gray-800">Danh sách Khách hàng</h2>
@@ -114,7 +114,7 @@ const CustomerManager = () => {
             </div>
 
             {/* Thanh Search bo góc chuẩn UI */}
-            <div className="relative mb-10">
+            <div className="relative mb-6 md:mb-10">
               <Search className="absolute left-4 top-3.5 text-gray-400" size={18} />
               <input
                 type="text"
@@ -131,22 +131,22 @@ const CustomerManager = () => {
                 <div className="text-center py-10 text-gray-400">Đang tải dữ liệu...</div>
               ) : filteredCustomers.length > 0 ? (
                 filteredCustomers.map(customer => (
-                  <div key={customer.id} className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm flex items-center justify-between hover:shadow-md hover:border-blue-100 transition-all">
-                    <div className="flex items-center gap-5">
+                  <div key={customer.id} className="bg-white p-4 md:p-5 rounded-xl border border-gray-100 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-0 hover:shadow-md hover:border-blue-100 transition-all">
+                    <div className="flex items-center gap-4 md:gap-5 w-full md:w-auto">
                       <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 font-bold text-lg border border-blue-100">
                         {customer.fullName.charAt(0)}
                       </div>
-                      <div>
+                      <div className="min-w-0 flex-1">
                         <h4 className="font-bold text-gray-900 text-lg">{customer.fullName}</h4>
-                        <div className="flex items-center gap-4 text-sm text-gray-500 mt-1">
-                          <span className="flex items-center gap-1"><Phone size={14} className="text-green-500"/> {customer.phone || 'N/A'}</span>
-                          <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
-                          <span>{customer.email}</span>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-sm text-gray-500 mt-1 truncate">
+                          <span className="flex items-center gap-1 shrink-0"><Phone size={14} className="text-green-500"/> {customer.phone || 'N/A'}</span>
+                          <span className="w-1 h-1 bg-gray-300 rounded-full hidden sm:block"></span>
+                          <span className="truncate">{customer.email}</span>
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-8">
+                    <div className="flex items-center justify-between md:justify-end w-full md:w-auto gap-4 md:gap-8 pt-4 md:pt-0 border-t md:border-t-0 border-gray-50">
                       <span className={`text-xs font-bold px-3 py-1 rounded-full ${
                         customer.latestOrderStatus?.toLowerCase() === 'success' 
                         ? 'bg-green-50 text-green-600' 

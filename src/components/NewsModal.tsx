@@ -69,10 +69,10 @@ const NewsModal: React.FC<NewsModalProps> = ({
   return (
     <>
       {/* Modal */}
-      <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
-        <div className="bg-white rounded-lg shadow-2xl w-96 max-h-[85vh] overflow-hidden pointer-events-auto flex flex-col">
+      <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none px-4">
+        <div className="bg-white rounded-lg shadow-2xl w-full max-w-[24rem] max-h-[90vh] overflow-hidden pointer-events-auto flex flex-col">
           {/* Header */}
-          <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 flex items-center justify-between">
+          <div className="bg-linear-to-r from-blue-600 to-blue-700 px-6 py-4 flex items-center justify-between">
             <h2 className="text-lg font-bold text-white">
               {editingNews ? 'Chỉnh sửa tin tức' : 'Thêm tin tức mới'}
             </h2>

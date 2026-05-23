@@ -7,7 +7,7 @@ interface AdminSidebarProps {
   setSidebarOpen: (open: boolean) => void;
 }
 
-const AdminSidebar: React.FC<AdminSidebarProps> = ({ sidebarOpen }) => {
+const AdminSidebar: React.FC<AdminSidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
   const navigate = useNavigate();
   
   const menuItems = [
@@ -23,7 +23,13 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ sidebarOpen }) => {
   ];
 
   return (
-    <div className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-white text-black transition-all duration-300 flex flex-col shadow-lg border-r border-gray-200`}>
+    <>
+      {/* Mobile Overlay */}
+      {sidebarOpen && (
+        <div className="fixed inset-0 bg-black/50 z-40 md:hidden" onClick={() => setSidebarOpen(false)} />
+      )}
+      
+      <div className={`fixed md:relative z-50 h-full ${sidebarOpen ? 'w-64 translate-x-0' : '-translate-x-full md:translate-x-0 md:w-20 w-64'} bg-white text-black transition-all duration-300 flex flex-col shadow-lg border-r border-gray-200 shrink-0`}>
       <div className="p-4 border-b border-gray-200 flex items-center gap-3 hover:bg-black hover:text-white transition cursor-pointer rounded-lg m-2">
         <div className="bg-black text-white p-2 rounded font-bold text-lg shrink-0">🛒</div>
         {sidebarOpen && <span className="text-base font-bold truncate">H&Q SHOP</span>}
@@ -61,6 +67,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ sidebarOpen }) => {
         </button>
       </div>
     </div>
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Search, Trash2, Edit2, Plus, X as CloseIcon } from 'lucide-react';
+import { Trash2, Edit2, Plus, X as CloseIcon } from 'lucide-react';
 import { FiX, FiMenu } from "react-icons/fi";
 import AdminSidebar from '../../components/AdminSidebar';
 import { toast } from 'react-toastify';
@@ -9,7 +9,7 @@ import { API_BASE } from '../../services/api';
 const PromotionManager = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [promotions, setPromotions] = useState<any[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm] = useState('');
   const [loading, setLoading] = useState(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -110,24 +110,24 @@ const PromotionManager = () => {
     <div className="flex h-screen bg-[#f8f9fa] overflow-hidden">
       <AdminSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <div className="flex-1 flex flex-col h-full overflow-hidden border-l">
-        <div className="bg-gray-900 shadow-xl px-8 py-6 flex items-center gap-4 text-white">
+        <div className="bg-gray-900 shadow-xl px-4 py-4 md:px-8 md:py-6 flex items-center gap-4 text-white">
           <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 hover:bg-gray-700 rounded-lg">
             {sidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
-          <h1 className="text-3xl font-bold uppercase tracking-tight">Quản lý Khuyến mại</h1>
+          <h1 className="text-xl md:text-3xl font-bold uppercase tracking-tight truncate">Quản lý Khuyến mại</h1>
         </div>
 
-        <main className="flex-1 overflow-y-auto p-8 bg-white text-black">
+        <main className="flex-1 overflow-y-auto p-4 md:p-8 bg-white text-black">
           <div className="max-w-7xl mx-auto">
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4 sm:gap-0">
                <h2 className="text-2xl font-bold text-gray-800">Danh sách mã giảm giá</h2>
                <button onClick={handleOpenAddModal} className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 font-bold shadow-md">
                  <Plus size={20}/> Thêm mới
                </button>
             </div>
 
-            <div className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden text-black">
-              <table className="w-full text-left border-collapse">
+            <div className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-x-auto text-black">
+              <table className="w-full text-left border-collapse min-w-200">
                 <thead className="bg-gray-50 border-b border-gray-100">
                   <tr className="text-gray-500 text-sm uppercase font-bold">
                     <th className="p-4">Chương trình</th>

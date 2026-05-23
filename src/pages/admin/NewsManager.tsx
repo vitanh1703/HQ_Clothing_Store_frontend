@@ -155,19 +155,19 @@ const NewsManager = () => {
     <div className="flex h-screen bg-gray-50">
       <AdminSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <div className="flex-1 flex flex-col overflow-hidden">
-        <div className="bg-gray-900 shadow-xl px-8 py-6 flex items-center gap-4">
+        <div className="bg-gray-900 shadow-xl px-4 py-4 md:px-8 md:py-6 flex items-center gap-4">
           <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 hover:bg-gray-700 text-white rounded-lg transition duration-200">
             {sidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
-          <h1 className="text-3xl font-bold text-white">Quản lý Tin tức</h1>
+          <h1 className="text-xl md:text-3xl font-bold text-white truncate">Quản lý Tin tức</h1>
         </div>
-        <div className="flex-1 overflow-auto p-8">
+        <div className="flex-1 overflow-auto p-4 md:p-8">
           <div className="max-w-7xl mx-auto">
             <div className="mb-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-1">Danh sách Tin tức</h2>
               <p className="text-gray-600 text-sm">Quản lý nội dung tin tức và bài viết</p>
             </div>
-            <div className="flex gap-4 mb-8">
+            <div className="flex flex-col sm:flex-row gap-4 mb-6 md:mb-8">
               <div className="flex-1 relative">
                 <FiSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
                 <input type="text" placeholder="Tìm kiếm..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full pl-12 pr-4 py-3 bg-white border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-600" />

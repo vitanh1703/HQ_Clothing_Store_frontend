@@ -125,25 +125,25 @@ const SupplierManager = () => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="bg-gray-900 shadow-xl px-8 py-6 flex items-center gap-4">
+        <div className="bg-gray-900 shadow-xl px-4 py-4 md:px-8 md:py-6 flex items-center gap-4">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="p-2 hover:bg-gray-700 text-white rounded-lg transition duration-200"
           >
             {sidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
-          <h1 className="text-3xl font-bold text-white">Quản lý Nhà cung cấp</h1>
+          <h1 className="text-xl md:text-3xl font-bold text-white truncate">Quản lý Nhà cung cấp</h1>
         </div>
 
         {/* Content Area */}
-        <div className="flex-1 overflow-auto p-8">
+        <div className="flex-1 overflow-auto p-4 md:p-8">
           <div className="mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Danh sách Nhà cung cấp</h2>
             <p className="text-gray-600">Quản lý thông tin nhà cung cấp và liên hệ</p>
           </div>
 
           {/* Search & Add Button */}
-          <div className="flex gap-4 mb-6">
+          <div className="flex flex-col sm:flex-row gap-4 mb-6">
             <div className="flex-1 relative">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
               <input

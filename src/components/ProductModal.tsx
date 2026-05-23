@@ -183,19 +183,19 @@ const ProductModal: React.FC<ProductModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
-      <div className="bg-white rounded-lg shadow-2xl w-full max-w-4xl max-h-[85vh] overflow-hidden transform transition-transform duration-300 pointer-events-auto flex flex-col">
+    <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none px-4">
+      <div className="bg-white rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden transform transition-transform duration-300 pointer-events-auto flex flex-col">
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-3">
+        <div className="bg-linear-to-r from-blue-600 to-blue-700 px-6 py-3">
           <h2 className="text-lg font-bold text-white">
             {isEditing ? 'Chỉnh sửa sản phẩm' : 'Thêm sản phẩm'}
           </h2>
         </div>
 
         {/* Content - 2 Columns */}
-        <div className="flex flex-1 overflow-hidden">
+        <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
           {/* Left: Product Info */}
-          <div className="w-1/2 overflow-y-auto p-4 space-y-3 border-r border-gray-200">
+          <div className="w-full md:w-1/2 overflow-y-auto p-4 space-y-3 border-b md:border-b-0 md:border-r border-gray-200 shrink-0 md:shrink">
           {/* Tên */}
           <div>
             <label className="text-xs font-semibold text-gray-700">Tên *</label>
@@ -294,7 +294,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
           </div>
 
           {/* Right: Variants */}
-          <div className="w-1/2 overflow-y-auto p-4 space-y-2 bg-gray-50">
+          <div className="w-full md:w-1/2 overflow-y-auto p-4 space-y-2 bg-gray-50 shrink-0 md:shrink">
             <label className="text-xs font-semibold text-gray-700">Kích cỡ / Màu / Giá {!isEditing && <span className="text-red-600">*</span>}</label>
 
             {/* Add Variant Form */}

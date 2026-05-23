@@ -148,21 +148,21 @@ const Statistics = () => {
       <AdminSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
       <div className="flex-1 flex flex-col overflow-hidden">
-        <div className="bg-gray-900 shadow-xl px-8 py-6 flex items-center gap-4">
+        <div className="bg-gray-900 shadow-xl px-4 py-4 md:px-8 md:py-6 flex items-center gap-4">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="p-2 hover:bg-gray-700 text-white rounded-lg transition duration-200"
           >
             {sidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
-          <h1 className="text-3xl font-bold text-white uppercase tracking-wider">
+          <h1 className="text-xl md:text-3xl font-bold text-white uppercase tracking-wider truncate">
             Báo cáo kinh doanh
           </h1>
         </div>
 
-        <div className="flex-1 overflow-auto p-8">
+        <div className="flex-1 overflow-auto p-4 md:p-8">
           <div className="max-w-7xl mx-auto">
-            <div className="flex justify-between items-end mb-8">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4 sm:gap-0">
               <div>
                 <h2 className="text-2xl font-bold text-gray-800">Thống kê chi tiết</h2>
                 <p className="text-gray-500">Dữ liệu lấy trực tiếp từ DB qua API thống kê</p>
@@ -201,7 +201,7 @@ const Statistics = () => {
               </div>
             )}
 
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
               <StatCard
                 title="Tổng doanh thu"
                 value={formatCurrency(stats.totalRevenue)}
@@ -290,7 +290,8 @@ const Statistics = () => {
                   <h3 className="text-lg font-bold uppercase">Khách hàng VIP</h3>
                 </div>
 
-                <table className="w-full">
+                <div className="overflow-x-auto">
+                  <table className="w-full min-w-100">
                   <thead>
                     <tr className="text-gray-400 text-sm border-b uppercase">
                       <th className="pb-4 text-left">Họ tên</th>
@@ -318,6 +319,7 @@ const Statistics = () => {
                     )}
                   </tbody>
                 </table>
+                </div>
               </div>
 
               <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
