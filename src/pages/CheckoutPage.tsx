@@ -164,7 +164,7 @@ const CheckoutPage = () => {
 
       if (paymentMethod === "vnpay") {
         const paymentRes = await axios.post(`${API_BASE}/payment/create-payment`, {
-          orderId: savedOrder.id,
+          orderId: savedOrder.id || savedOrder.Id || savedOrder.orderId, // Tránh lỗi lệch kiểu CamelCase/PascalCase
           amount: totalAfterDiscount
         });
         window.location.href = paymentRes.data.url;
