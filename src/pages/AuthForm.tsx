@@ -211,14 +211,14 @@ const AuthForm = () => {
   };
 
   return (
-    <div className="relative w-screen h-screen flex justify-center items-center overflow-hidden font-sans bg-[#f6f5f7]">
-      <div className={`relative overflow-hidden w-212.5 max-w-full min-h-155 bg-white shadow-[0_14px_28px_rgba(0,0,0,0.25)] rounded-[20px] z-10 transition-all duration-600 ease-in-out`}>
+    <div className="relative w-screen h-screen flex justify-center items-center overflow-hidden font-sans bg-[#f6f5f7] px-4">
+      <div className={`relative overflow-hidden w-full max-w-[850px] min-h-[550px] md:min-h-[600px] bg-white shadow-[0_14px_28px_rgba(0,0,0,0.25)] rounded-[20px] z-10 transition-all duration-600 ease-in-out`}>
         
         {/* --- FORM ĐĂNG KÝ --- */}
-        <div className={`absolute top-0 h-full transition-all duration-600 ease-in-out left-0 w-1/2 z-1 opacity-0 
-          ${isRightPanelActive ? 'translate-x-full opacity-100 z-5 animate-show' : ''}`}>
+        <div className={`absolute top-0 h-full transition-all duration-600 ease-in-out left-0 w-full md:w-1/2 z-1 
+          ${isRightPanelActive ? 'translate-x-0 md:translate-x-full opacity-100 z-5 animate-show pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
           {registerStep === 0 ? (
-          <form onSubmit={handleRegisterSubmit} className="bg-white flex items-center justify-center flex-col px-10 h-full text-center">
+          <form onSubmit={handleRegisterSubmit} className="bg-white flex items-center justify-center flex-col px-6 md:px-10 h-full text-center py-10 md:py-0">
             <h1 className="text-3xl font-bold mb-2">Tạo tài khoản mới</h1>
             <p className="text-gray-500 mb-6 text-sm">Vui lòng điền thông tin bên dưới</p>
             
@@ -242,10 +242,13 @@ const AuthForm = () => {
               {loading || isSendingOtp ? "Đang xử lý..." : "Đăng ký ngay"}
             </button>
             
-            <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => toast.error("Google Auth Fail")} theme="outline" width="340px" text="signup_with" useOneTap={false} type="standard"/>
+            <div className="w-full flex justify-center">
+              <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => toast.error("Google Auth Fail")} theme="outline" text="signup_with" useOneTap={false} type="standard"/>
+            </div>
+            <button type="button" onClick={() => setIsRightPanelActive(false)} className="mt-4 text-sm font-bold text-gray-500 hover:underline md:hidden">Đã có tài khoản? Đăng nhập</button>
           </form>
           ) : (
-          <form onSubmit={handleVerifyRegisterOtp} className="bg-white flex items-center justify-center flex-col px-10 h-full text-center">
+          <form onSubmit={handleVerifyRegisterOtp} className="bg-white flex items-center justify-center flex-col px-6 md:px-10 h-full text-center py-10 md:py-0">
             <h1 className="text-3xl font-bold mb-2">Xác thực Email</h1>
             <p className="text-gray-500 mb-6 text-sm">Nhập mã OTP đã được gửi đến {registerData?.email}</p>
             
@@ -265,10 +268,10 @@ const AuthForm = () => {
         </div>
 
         {/* --- FORM ĐĂNG NHẬP --- */}
-        <div className={`absolute top-0 h-full transition-all duration-600 ease-in-out left-0 w-1/2 z-2 
-          ${isRightPanelActive ? 'translate-x-full' : ''}`}>
+        <div className={`absolute top-0 h-full transition-all duration-600 ease-in-out left-0 w-full md:w-1/2 z-2 
+          ${isRightPanelActive ? 'opacity-0 md:opacity-100 -translate-x-[100%] md:translate-x-full pointer-events-none md:pointer-events-auto' : 'opacity-100 translate-x-0 pointer-events-auto z-5'}`}>
         {forgotStep === 0 ? (
-          <form onSubmit={handleLoginSubmit} className="bg-white flex items-center justify-center flex-col px-10 h-full">
+          <form onSubmit={handleLoginSubmit} className="bg-white flex items-center justify-center flex-col px-6 md:px-10 h-full py-10 md:py-0">
             <div className="mb-4 text-center w-full">
                 <div className="bg-black w-12 h-12 rounded-lg flex items-center justify-center text-white font-bold mx-auto mb-4 italic">H&Q</div>
                 <h1 className="text-3xl font-bold">Chào mừng trở lại!</h1>
@@ -298,10 +301,13 @@ const AuthForm = () => {
               {loading ? "Đang xác thực..." : "Đăng Nhập"}
             </button>
 
-            <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => toast.error("Google Auth Fail")} theme="outline" width="340px" text="signup_with" useOneTap={false} type="standard"/>
+            <div className="w-full flex justify-center">
+              <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => toast.error("Google Auth Fail")} theme="outline" text="signup_with" useOneTap={false} type="standard"/>
+            </div>
+            <button type="button" onClick={() => setIsRightPanelActive(true)} className="mt-4 text-sm font-bold text-gray-500 hover:underline md:hidden">Chưa có tài khoản? Đăng ký</button>
           </form>
         ) : (
-          <div className="bg-white flex items-center justify-center flex-col px-10 h-full">
+          <div className="bg-white flex items-center justify-center flex-col px-6 md:px-10 h-full py-10 md:py-0">
             <div className="mb-4 text-center w-full">
                 <div className="bg-black w-12 h-12 rounded-lg flex items-center justify-center text-white font-bold mx-auto mb-4 italic">H&Q</div>
                 <h1 className="text-2xl font-bold">Quên Mật Khẩu</h1>
@@ -359,8 +365,8 @@ const AuthForm = () => {
         </div>
 
         {/* --- OVERLAY --- */}
-        <div className={`absolute top-0 left-1/2 w-1/2 h-full overflow-hidden transition-transform duration-600 ease-in-out z-100 ${isRightPanelActive ? '-translate-x-full' : ''}`}>
-          <div className={`bg-linear-to-r from-gray-900 to-black text-white relative -left-full h-full w-[200%] transition-transform duration-600 ${isRightPanelActive ? 'translate-x-1/2' : 'translate-x-0'}`}>
+        <div className={`hidden md:block absolute top-0 left-1/2 w-1/2 h-full overflow-hidden transition-transform duration-600 ease-in-out z-100 ${isRightPanelActive ? '-translate-x-full' : ''}`}>
+          <div className={`bg-gradient-to-r from-gray-900 to-black text-white relative -left-full h-full w-[200%] transition-transform duration-600 ${isRightPanelActive ? 'translate-x-1/2' : 'translate-x-0'}`}>
             <div className={`absolute flex flex-col items-center justify-center px-10 text-center top-0 h-full w-1/2 transition-transform duration-600 ${isRightPanelActive ? 'translate-x-0' : '-translate-x-[20%]'}`}>
               <h1 className="text-3xl font-bold">Chào bạn mới!</h1>
               <p className="text-sm font-light my-5">Gia nhập H&Q Store để khám phá phong cách thời trang mới nhất.</p>

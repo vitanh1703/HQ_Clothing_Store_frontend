@@ -60,7 +60,7 @@ const NewsPage = () => {
   return (
     <div className="bg-white min-h-screen">
       {/* Header */}
-      <section className="px-20 py-16 bg-[#F5F5F5] border-b border-gray-200">
+      <section className="px-6 lg:px-20 py-10 lg:py-16 bg-[#F5F5F5] border-b border-gray-200">
         <div className="flex items-center gap-4 mb-8">
           <button
             onClick={() => navigate('/')}
@@ -68,7 +68,7 @@ const NewsPage = () => {
           >
             <ArrowLeft size={24} />
           </button>
-          <h1 className="text-5xl font-[1000] uppercase tracking-tighter">
+          <h1 className="text-3xl lg:text-5xl font-[1000] uppercase tracking-tighter">
             Tin Tức & Sự Kiện
           </h1>
         </div>
@@ -106,13 +106,13 @@ const NewsPage = () => {
       </section>
 
       {/* News Grid */}
-      <section className="px-20 py-20">
+      <section className="px-6 lg:px-20 py-12 lg:py-20">
         {loading ? (
           <div className="space-y-12">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="flex gap-8 pb-12 border-b border-gray-200">
-                <div className="w-[30%] h-56 bg-gray-100 animate-pulse rounded-lg"></div>
-                <div className="w-[70%] space-y-3">
+              <div key={i} className="flex flex-col md:flex-row gap-6 lg:gap-8 pb-12 border-b border-gray-200">
+                <div className="w-full md:w-[30%] h-56 bg-gray-100 animate-pulse rounded-lg"></div>
+                <div className="w-full md:w-[70%] space-y-3">
                   <div className="h-4 bg-gray-100 animate-pulse rounded w-1/4"></div>
                   <div className="h-6 bg-gray-100 animate-pulse rounded w-full"></div>
                   <div className="h-4 bg-gray-100 animate-pulse rounded w-5/6"></div>
@@ -214,8 +214,8 @@ const NewsPage = () => {
       </section>
 
       {/* Stats */}
-      <section className="px-20 py-16 bg-[#F5F5F5] border-t border-gray-200">
-        <div className="flex justify-between items-center max-w-2xl">
+      <section className="px-6 lg:px-20 py-10 lg:py-16 bg-[#F5F5F5] border-t border-gray-200">
+        <div className="flex flex-col sm:flex-row justify-between items-center max-w-2xl gap-8 sm:gap-0">
           <div className="text-center flex-1">
             <p className="text-4xl font-black text-black mb-2">{filteredNews.length}</p>
             <p className="text-gray-500 text-sm uppercase font-bold tracking-widest">

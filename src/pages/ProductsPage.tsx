@@ -167,7 +167,7 @@ const ProductsPage = () => {
   if (error) return <div className="h-screen flex items-center justify-center text-red-500 uppercase font-black tracking-tight">Error: {error}</div>;
 
   return (
-    <div className="bg-[#F8F8F8] h-screen overflow-hidden flex flex-col font-sans px-10 py-6">
+    <div className="bg-[#F8F8F8] min-h-screen lg:h-screen overflow-hidden flex flex-col font-sans px-4 lg:px-10 py-4 lg:py-6">
       <header className="mb-8 shrink-0">
         <div className="text-[9px] text-gray-400 font-bold tracking-[0.2em] uppercase mb-1">Home / Shop</div>
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 border-b border-gray-200 pb-4">
@@ -184,9 +184,9 @@ const ProductsPage = () => {
         </div>
       </header>
 
-      <div className="flex gap-12 flex-1 overflow-hidden relative">
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 flex-1 overflow-hidden relative">
         
-        <aside className="shrink-0 overflow-y-auto scrollbar-hide w-64">
+        <aside className="shrink-0 lg:overflow-y-auto scrollbar-hide w-full lg:w-64">
           <SidebarFilters 
             products={products}
             onFilterChange={setFilters}

@@ -114,8 +114,8 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#F5F5F5] py-12">
-      <div className="max-w-4xl mx-auto px-8">
+    <div className="min-h-screen bg-[#F5F5F5] py-8 lg:py-12">
+      <div className="max-w-4xl mx-auto px-4 lg:px-8">
         <div className="bg-white rounded-lg shadow-sm p-8">
           <h1 className="text-3xl font-black uppercase mb-8 text-center">Thông tin cá nhân</h1>
 
@@ -169,7 +169,7 @@ const ProfilePage = () => {
                 </button>
               </div>
             ) : (
-              <div className="bg-white border border-gray-200 rounded-lg max-h-90 overflow-y-auto">
+              <div className="bg-white border border-gray-200 rounded-lg max-h-90 overflow-auto">
                 <table className="w-full text-left text-sm">
                   <thead className="bg-gray-50 border-b border-gray-200 uppercase text-xs tracking-wider sticky top-0 z-10">
                     <tr>
@@ -203,7 +203,7 @@ const ProfilePage = () => {
           </div>
           <div className="mt-8 pt-8 border-t border-gray-200">
             <h2 className="text-xl font-bold uppercase mb-4">Cài đặt tài khoản</h2>
-            <div className="flex gap-4 mb-6">
+            <div className="flex flex-col sm:flex-row gap-4 mb-6">
               <button 
                 onClick={() => { setShowChangePassword(!showChangePassword); setShowEditProfile(false); }}
                 className={`px-6 py-2 rounded-lg font-bold uppercase text-sm transition-colors ${showChangePassword ? 'bg-black text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}

@@ -301,8 +301,8 @@ const CheckoutPage = () => {
           </section>
 
           <section className="mt-10">
-            <div className="flex items-center justify-between gap-4">
-              <h2 className="text-xl font-bold mb-4">Mã giảm giá</h2>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 mb-4">
+              <h2 className="text-xl font-bold">Mã giảm giá</h2>
               <button
                 onClick={() => setShowPromoModal(true)}
                 className="text-sm font-semibold text-blue-600 hover:text-blue-800"
