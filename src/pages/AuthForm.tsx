@@ -212,7 +212,7 @@ const AuthForm = () => {
 
   return (
     <div className="relative w-screen h-screen flex justify-center items-center overflow-hidden font-sans bg-[#f6f5f7] px-4">
-      <div className={`relative overflow-hidden w-full max-w-[850px] min-h-[550px] md:min-h-[600px] bg-white shadow-[0_14px_28px_rgba(0,0,0,0.25)] rounded-[20px] z-10 transition-all duration-600 ease-in-out`}>
+      <div className={`relative overflow-hidden w-full max-w-212.5 min-h-137.5 md:min-h-150 bg-white shadow-[0_14px_28px_rgba(0,0,0,0.25)] rounded-[20px] z-10 transition-all duration-600 ease-in-out`}>
         
         {/* --- FORM ĐĂNG KÝ --- */}
         <div className={`absolute top-0 h-full transition-all duration-600 ease-in-out left-0 w-full md:w-1/2 z-1 
@@ -269,7 +269,7 @@ const AuthForm = () => {
 
         {/* --- FORM ĐĂNG NHẬP --- */}
         <div className={`absolute top-0 h-full transition-all duration-600 ease-in-out left-0 w-full md:w-1/2 z-2 
-          ${isRightPanelActive ? 'opacity-0 md:opacity-100 -translate-x-[100%] md:translate-x-full pointer-events-none md:pointer-events-auto' : 'opacity-100 translate-x-0 pointer-events-auto z-5'}`}>
+          ${isRightPanelActive ? 'opacity-0 md:opacity-100 -translate-x-full md:translate-x-full pointer-events-none md:pointer-events-auto' : 'opacity-100 translate-x-0 pointer-events-auto z-5'}`}>
         {forgotStep === 0 ? (
           <form onSubmit={handleLoginSubmit} className="bg-white flex items-center justify-center flex-col px-6 md:px-10 h-full py-10 md:py-0">
             <div className="mb-4 text-center w-full">
@@ -366,8 +366,8 @@ const AuthForm = () => {
 
         {/* --- OVERLAY --- */}
         <div className={`hidden md:block absolute top-0 left-1/2 w-1/2 h-full overflow-hidden transition-transform duration-600 ease-in-out z-100 ${isRightPanelActive ? '-translate-x-full' : ''}`}>
-          <div className={`bg-gradient-to-r from-gray-900 to-black text-white relative -left-full h-full w-[200%] transition-transform duration-600 ${isRightPanelActive ? 'translate-x-1/2' : 'translate-x-0'}`}>
-            <div className={`absolute flex flex-col items-center justify-center px-10 text-center top-0 h-full w-1/2 transition-transform duration-600 ${isRightPanelActive ? 'translate-x-0' : '-translate-x-[20%]'}`}>
+          <div className={`bg-linear-to-r from-gray-900 to-black text-white relative -left-full h-full w-[200%] transition-transform duration-600 ${isRightPanelActive ? 'translate-x-1/2' : 'translate-x-0'}`}>
+            <div className={`absolute flex flex-col items-center justify-center px-10 text-center top-0 h-full w-1/2 transition-transform duration-600 ${isRightPanelActive ? 'translate-x-0' : 'translate-x-[-20%]'}`}>
               <h1 className="text-3xl font-bold">Chào bạn mới!</h1>
               <p className="text-sm font-light my-5">Gia nhập H&Q Store để khám phá phong cách thời trang mới nhất.</p>
               <button onClick={() => { setIsRightPanelActive(false); setRegisterStep(0); }} className="bg-transparent border border-white rounded-full text-white text-xs font-bold py-3 px-11 uppercase cursor-pointer hover:bg-white hover:text-black transition-all">Đăng nhập</button>

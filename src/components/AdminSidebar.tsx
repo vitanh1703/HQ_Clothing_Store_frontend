@@ -25,7 +25,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ sidebarOpen }) => {
   return (
     <div className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-white text-black transition-all duration-300 flex flex-col shadow-lg border-r border-gray-200`}>
       <div className="p-4 border-b border-gray-200 flex items-center gap-3 hover:bg-black hover:text-white transition cursor-pointer rounded-lg m-2">
-        <div className="bg-black text-white p-2 rounded font-bold text-lg flex-shrink-0">🛒</div>
+        <div className="bg-black text-white p-2 rounded font-bold text-lg shrink-0">🛒</div>
         {sidebarOpen && <span className="text-base font-bold truncate">H&Q SHOP</span>}
       </div>
 

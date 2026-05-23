@@ -234,7 +234,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </button>
 
         <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-end pb-4 px-3">
-          <div className="flex flex-wrap justify-center gap-1 mb-1.5 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+          <div className="flex flex-wrap justify-center gap-1 mb-1.5 lg:translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
             {availableColors.map((color) => (
               <button
                 key={color}
@@ -256,7 +256,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             ))}
           </div>
 
-          <div className="flex flex-wrap justify-center gap-1.5 mb-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+          <div className="flex flex-wrap justify-center gap-1.5 mb-3 lg:translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
             {allSizes.map((size) => {
               const isAvailable = !selectedColor || variants.some((v) => v.color === selectedColor && v.size === size);
               return (
@@ -287,7 +287,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             })}
           </div>
 
-          <div className="flex items-center bg-white/95 rounded-sm mb-3 w-full justify-between px-3 py-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75 shadow-sm">
+          <div className="flex items-center bg-white/95 rounded-sm mb-3 w-full justify-between px-3 py-2 lg:translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75 shadow-sm">
             <span className="text-[9px] font-bold uppercase text-gray-500 tracking-wider">Số lượng</span>
             <div className="flex items-center gap-4">
               <button onClick={(e) => { e.stopPropagation(); handleQuantity('minus'); }} className="text-sm font-bold hover:text-red-500">-</button>

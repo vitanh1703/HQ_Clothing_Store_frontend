@@ -56,16 +56,15 @@ const Header = () => {
   return (
     <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 flex items-center justify-between px-6 md:px-10 py-4 shadow-sm">
       {/* LEFT: Menu & Navigation */}
-      <div className="flex items-center gap-4 lg:gap-6 flex-1 relative">
+      <div className="flex items-center gap-4 lg:gap-6 flex-1 lg:static">
         <button 
           onClick={() => setIsNavMenuOpen(!isNavMenuOpen)} 
-          className="nav-button p-2 -ml-2 hover:bg-gray-100 rounded-full transition-colors focus:outline-none text-black shrink-0"
+          className="nav-button p-2 -ml-2 hover:bg-gray-100 rounded-full transition-colors focus:outline-none text-black shrink-0 lg:hidden"
         >
           <Menu size={20} />
         </button>
         
-        {isNavMenuOpen && (
-          <div className="nav-menu absolute top-full left-0 mt-4 md:static md:mt-0 flex flex-col md:flex-row items-start md:items-center bg-white md:bg-transparent shadow-xl md:shadow-none rounded-xl md:rounded-none border border-gray-100 md:border-none p-6 md:p-0 gap-6 lg:gap-8 text-sm font-bold uppercase tracking-widest text-gray-600 animate-in slide-in-from-left-4 fade-in duration-300 z-50">
+        <div className={`nav-menu absolute top-full left-0 w-full lg:w-auto mt-0 lg:static flex-col lg:flex-row items-start lg:items-center bg-white lg:bg-transparent shadow-xl lg:shadow-none border-b border-gray-100 lg:border-none p-6 lg:p-0 gap-6 lg:gap-8 text-sm font-bold uppercase tracking-widest text-gray-600 z-50 ${isNavMenuOpen ? 'flex animate-in slide-in-from-top-2 fade-in duration-300' : 'hidden lg:flex'}`}>
             <button 
               onClick={() => { navigate("/home"); setIsNavMenuOpen(false); }} 
               className={`hover:text-black transition-colors shrink-0 ${location.pathname === '/home' ? 'text-black' : ''}`}
@@ -85,14 +84,14 @@ const Header = () => {
                 Sản phẩm
               </button>
               {isProductsDropdownOpen && (
-                <div className="md:absolute static top-full left-0  w-full md:w-56 bg-gray-50 md:bg-white border-none md:border border-gray-100 rounded-xl md:shadow-xl py-2 md:py-3 z-50 overflow-hidden">
+                <div className="lg:absolute static top-full left-0 w-full lg:w-56 bg-gray-50 lg:bg-white border-none lg:border border-gray-100 rounded-xl lg:shadow-xl py-2 lg:py-3 z-50 overflow-hidden mt-2 lg:mt-0">
                   <button 
                     onClick={() => {
                       navigate(`/products`);
                       setIsProductsDropdownOpen(false);
                       setIsNavMenuOpen(false);
                     }}
-                    className="w-full text-left px-5 py-3 text-sm font-bold hover:bg-gray-100 md:hover:bg-gray-50 transition-colors"
+                    className="w-full text-left px-5 py-3 text-sm font-bold hover:bg-gray-100 lg:hover:bg-gray-50 transition-colors"
                   >
                     Tất cả sản phẩm
                   </button>
@@ -104,7 +103,7 @@ const Header = () => {
                         setIsProductsDropdownOpen(false);
                         setIsNavMenuOpen(false);
                       }}
-                      className="w-full text-left px-5 py-3 text-sm font-medium hover:bg-gray-100 md:hover:bg-gray-50 transition-colors"
+                      className="w-full text-left px-5 py-3 text-sm font-medium hover:bg-gray-100 lg:hover:bg-gray-50 transition-colors"
                     >
                       {category.name}
                     </button>
@@ -126,7 +125,7 @@ const Header = () => {
               </button>
 
               {isNewsDropdownOpen && (
-                <div className="md:absolute static top-full left-0 w-full md:w-64 bg-gray-50 md:bg-white border-none md:border border-gray-100 rounded-xl md:shadow-xl py-2 md:py-3 z-50 overflow-hidden">
+                <div className="lg:absolute static top-full left-0 w-full lg:w-64 bg-gray-50 lg:bg-white border-none lg:border border-gray-100 rounded-xl lg:shadow-xl py-2 lg:py-3 z-50 overflow-hidden mt-2 lg:mt-0">
                   
                   {/* Tất cả */}
                   <button 
@@ -135,7 +134,7 @@ const Header = () => {
                       setIsNewsDropdownOpen(false);
                       setIsNavMenuOpen(false);
                     }}
-                    className="w-full text-left px-5 py-3 text-sm font-bold hover:bg-gray-100 md:hover:bg-gray-50"
+                    className="w-full text-left px-5 py-3 text-sm font-bold hover:bg-gray-100 lg:hover:bg-gray-50"
                   >
                     Tất cả bài viết
                   </button>
@@ -149,7 +148,7 @@ const Header = () => {
                         setIsNewsDropdownOpen(false);
                         setIsNavMenuOpen(false);
                       }}
-                      className="w-full text-left px-5 py-3 text-sm hover:bg-gray-100 md:hover:bg-gray-50"
+                      className="w-full text-left px-5 py-3 text-sm hover:bg-gray-100 lg:hover:bg-gray-50"
                     >
                       <div className="font-medium">{news.title}</div>
                       <div className="text-xs text-gray-500">{news.category}</div>
@@ -168,7 +167,6 @@ const Header = () => {
               Hỗ trợ
             </button>
           </div>
-        )}
       </div>
 
       {/* CENTER: Logo */}

@@ -144,11 +144,9 @@ const CartPage = () => {
       setPromoMessage(err.response?.data?.message || "Mã giảm giá không hợp lệ hoặc đã hết hạn.");
       sessionStorage.removeItem("selectedPromo");
     } finally {
-      setOriginalApplyingPromo(false);
+      setIsApplyingPromo(false);
     }
   };
-
-  const [_, setOriginalApplyingPromo] = useState(false);
 
   const handleSelectPromo = async (promo: PromotionItem) => {
     setPromoCode(promo.code);
