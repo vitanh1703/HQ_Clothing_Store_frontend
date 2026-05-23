@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Trash2, Edit2, Plus, X as CloseIcon } from 'lucide-react';
+import { Search, Trash2, Edit2, Plus, X as CloseIcon } from 'lucide-react';
 import { FiX, FiMenu } from "react-icons/fi";
 import AdminSidebar from '../../components/AdminSidebar';
 import { toast } from 'react-toastify';
@@ -9,7 +9,7 @@ import { API_BASE } from '../../services/api';
 const PromotionManager = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [promotions, setPromotions] = useState<any[]>([]);
-  const [searchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -121,9 +121,15 @@ const PromotionManager = () => {
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4 sm:gap-0">
                <h2 className="text-2xl font-bold text-gray-800">Danh sách mã giảm giá</h2>
-               <button onClick={handleOpenAddModal} className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 font-bold shadow-md">
-                 <Plus size={20}/> Thêm mới
-               </button>
+               <div className="flex items-center gap-4 w-full sm:w-auto mt-4 sm:mt-0">
+                 <div className="relative w-full sm:w-64">
+                   <input type="text" placeholder="Tìm kiếm mã..." className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800 text-sm" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                   <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
+                 </div>
+                 <button onClick={handleOpenAddModal} className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 font-bold shadow-md min-w-max">
+                   <Plus size={20}/> Thêm mới
+                 </button>
+               </div>
             </div>
 
             <div className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-x-auto text-black">

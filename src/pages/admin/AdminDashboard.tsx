@@ -47,7 +47,7 @@ const AdminDashboard = () => {
       title: 'Khuyến mại',
       description: 'Tạo và quản lý các chương trình khuyến mại, mã giảm giá',
       icon: FiTag,
-      path: '/promotions',
+      path: '/admin/promotions',
       color: 'orange',
       bgColor: 'bg-orange-50',
       textColor: 'text-orange-600',
