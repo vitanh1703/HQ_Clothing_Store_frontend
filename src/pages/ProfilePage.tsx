@@ -153,7 +153,12 @@ const ProfilePage = () => {
           </div>
 
           <div>
-            <h2 className="text-xl font-bold uppercase mb-4">Lịch sử mua hàng</h2>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold uppercase">Lịch sử mua hàng</h2>
+              <button onClick={() => navigate('/orders-history')} className="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-black transition-colors">
+                Xem tất cả
+              </button>
+            </div>
             {loadingOrders ? (
               <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
                 <p className="text-gray-600">Đang tải lịch sử mua hàng...</p>

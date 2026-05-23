@@ -33,6 +33,8 @@ import PromotionManager from './pages/admin/PromotionManager';
 import InventoryManager from './pages/admin/InventoryManager';
 import Statistics from './pages/admin/Statistics';
 import { API_BASE } from './services/api'; // Hãy điều chỉnh đường dẫn ../ cho đúng vị trí file
+import PromotionsPage from './pages/PromotionsPage';
+import OrderHistoryPage from './pages/OrderHistoryPage';
 
 const RootRedirect = () => {
   const auth = sessionStorage.getItem("auth");
@@ -99,6 +101,8 @@ function App() {
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/products/:id" element={<ProductDetailPage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
+          <Route path="/promotions" element={<PromotionsPage />} />
+          <Route path="/orders-history" element={<OrderHistoryPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/payment" element={<PaymentPage />} />

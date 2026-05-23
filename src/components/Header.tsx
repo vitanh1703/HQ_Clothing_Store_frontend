@@ -213,6 +213,15 @@ const Header = () => {
               <button 
                 onClick={() => {
                   setIsDropdownOpen(false);
+                  navigate("/orders-history");
+                }}
+                className="w-full text-left px-5 py-3 text-sm font-medium hover:bg-gray-50 transition-colors"
+              >
+                Lịch sử đơn hàng
+              </button>
+              <button 
+                onClick={() => {
+                  setIsDropdownOpen(false);
                   navigate("/wishlist");
                 }}
                 className="w-full text-left px-5 py-3 text-sm font-medium hover:bg-gray-50 transition-colors md:hidden"

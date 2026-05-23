@@ -88,7 +88,7 @@ const Home = () => {
       <section className="px-6 lg:px-20 pb-16 lg:pb-32 bg-white pt-16 lg:pt-24">
         <div className="flex justify-between items-end mb-8 lg:mb-12">
           <h2 className="text-3xl lg:text-5xl font-[1000] uppercase leading-[0.8] tracking-tighter">
-            Hàng Mới<span className="text-blue-600 text-sm align-top ml-1 font-bold">({products.length})</span>
+            Hàng Mới
           </h2>
           <button 
             onClick={() => navigate("/products")} 
@@ -186,7 +186,7 @@ const Home = () => {
               Khuyến Mãi<br className="hidden lg:block" /> <span className="text-red-500">Hôm Nay</span>
             </h2>
           </div>
-          <button className="text-[10px] lg:text-[11px] font-black uppercase px-6 py-3 border-2 border-red-500 text-red-500 rounded-full hover:bg-red-500 hover:text-white transition-all duration-300 hover:shadow-lg whitespace-nowrap">
+          <button onClick={() => navigate('/promotions')} className="text-[10px] lg:text-[11px] font-black uppercase px-6 py-3 border-2 border-red-500 text-red-500 rounded-full hover:bg-red-500 hover:text-white transition-all duration-300 hover:shadow-lg whitespace-nowrap">
             Xem tất cả
           </button>
         </div>
