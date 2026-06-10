@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import axios from 'axios';
 import {
   AreaChart,
   Area,
@@ -26,7 +27,7 @@ import {
   FiPackage,
 } from 'react-icons/fi';
 import AdminSidebar from '../../components/AdminSidebar';
-import { statsApi } from '../../services/api';
+import { statsApi, API_BASE } from '../../services/api';
 
 interface RevenueTrendItem {
   day: string;
@@ -106,11 +107,27 @@ const Statistics = () => {
 
       const response = await statsApi.getDashboard(range);
 
+      // Fetch orders để tính doanh thu chỉ từ các đơn đã thanh toán
+      let paidOrdersRevenue = 0;
+      let paidOrdersCount = 0;
+      try {
+        const ordersResponse = await axios.get(`${API_BASE}/orders/admin/all`);
+        const orders = ordersResponse.data || [];
+        
+        // Filter chỉ lấy đơn hàng có status = 'Success'
+        const paidOrders = orders.filter((order: any) => order.status === 'Success');
+        
+        paidOrdersRevenue = paidOrders.reduce((sum: number, order: any) => sum + (order.totalAmount || 0), 0);
+        paidOrdersCount = paidOrders.length;
+      } catch (err) {
+        console.error('Lỗi khi fetch orders:', err);
+      }
+
       setStats({
-        totalRevenue: Number(response.totalRevenue || 0),
-        totalOrders: Number(response.totalOrders || 0),
+        totalRevenue: paidOrdersRevenue || Number(response.totalRevenue || 0),
+        totalOrders: paidOrdersCount || Number(response.totalOrders || 0),
         totalCustomers: Number(response.totalCustomers || 0),
-        avgOrderValue: Number(response.avgOrderValue || 0),
+        avgOrderValue: paidOrdersCount > 0 ? paidOrdersRevenue / paidOrdersCount : Number(response.avgOrderValue || 0),
         totalProducts: Number(response.totalProducts || 0),
         revenueTrend: Array.isArray(response.revenueTrend) ? response.revenueTrend : [],
         categoryDistribution: Array.isArray(response.categoryDistribution) ? response.categoryDistribution : [],
@@ -155,8 +172,8 @@ const Statistics = () => {
           >
             {sidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
-          <h1 className="text-xl md:text-3xl font-bold text-white uppercase tracking-wider truncate">
-            Báo cáo kinh doanh
+          <h1 className="text-xl md:text-3xl font-bold text-white tracking-wider truncate">
+            Báo cáo Thống kê
           </h1>
         </div>
 
@@ -165,7 +182,7 @@ const Statistics = () => {
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4 sm:gap-0">
               <div>
                 <h2 className="text-2xl font-bold text-gray-800">Thống kê chi tiết</h2>
-                <p className="text-gray-500">Dữ liệu lấy trực tiếp từ DB qua API thống kê</p>
+                <p className="text-gray-500">Quản lý và theo dõi dữ liệu doanh thu, đơn hàng, khách hàng và sản phẩm</p>
               </div>
 
               <div className="relative">
@@ -325,7 +342,7 @@ const Statistics = () => {
               <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
                 <div className="flex items-center gap-3 mb-6">
                   <FiPackage className="text-blue-500 text-2xl" />
-                  <h3 className="text-lg font-bold uppercase">Trạng thái đơn hàng</h3>
+                  <h3 className="text-lg font-bold">Trạng thái đơn hàng</h3>
                 </div>
 
                 <div className="h-72">
