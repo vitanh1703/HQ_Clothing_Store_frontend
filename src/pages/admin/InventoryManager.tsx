@@ -61,7 +61,7 @@ const InventoryManager = () => {
     inStock: warehouseData.filter(i => i.stockQuantity >= 20).length,
     lowStock: warehouseData.filter(i => i.stockQuantity > 0 && i.stockQuantity < 20).length,
     outOfStock: warehouseData.filter(i => i.stockQuantity <= 0).length,
-    totalQuantity: warehouseData.reduce((sum, i) => sum + i.stockQuantity, 0)
+    totalQuantity: warehouseData.reduce((sum, i) => sum + Math.max(0, i.stockQuantity - (i.reservedQuantity || 0)), 0)
   };
 
   return (
@@ -145,7 +145,7 @@ const InventoryManager = () => {
                       <td className="p-4 font-bold text-center">{item.stockQuantity}</td>
                       {/* CỘT ĐÃ ĐẶT MỚI THÊM */}
                       <td className="p-4 font-bold text-center text-orange-600">{item.reservedQuantity || 0}</td>
-                      <td className="p-4 font-bold text-green-600 text-center">{item.stockQuantity - (item.reservedQuantity || 0)}</td>
+                      <td className="p-4 font-bold text-green-600 text-center">{Math.max(0, item.stockQuantity - (item.reservedQuantity || 0))}</td>
                       <td className="p-4 text-center"><StatusBadge q={item.stockQuantity} /></td>
                     </tr>
                   ))}
