@@ -114,8 +114,32 @@ const Statistics = () => {
         const ordersResponse = await axios.get(`${API_BASE}/orders/admin/all`);
         const orders = ordersResponse.data || [];
         
-        // Filter chỉ lấy đơn hàng có status = 'Success'
-        const paidOrders = orders.filter((order: any) => order.status === 'Success');
+        // Tính ngày bắt đầu dựa trên range
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        let startDate = new Date(today);
+        
+        if (range === '7days') {
+          startDate.setDate(today.getDate() - 7);
+        } else if (range === '30days') {
+          startDate.setDate(today.getDate() - 30);
+        } else if (range === '3months') {
+          startDate.setMonth(today.getMonth() - 3);
+        } else if (range === 'thisyear') {
+          startDate.setFullYear(today.getFullYear(), 0, 1);
+        }
+
+        // Filter chỉ lấy đơn hàng có status = 'Success' và nằm trong khoảng thời gian
+        const paidOrders = orders.filter((order: any) => {
+          if (order.status !== 'Success') return false;
+          
+          if (!order.orderDate) return false;
+          const orderDate = new Date(order.orderDate);
+          if (isNaN(orderDate.getTime())) return false;
+          orderDate.setHours(0, 0, 0, 0);
+          
+          return orderDate >= startDate && orderDate <= today;
+        });
         
         paidOrdersRevenue = paidOrders.reduce((sum: number, order: any) => sum + (order.totalAmount || 0), 0);
         paidOrdersCount = paidOrders.length;
