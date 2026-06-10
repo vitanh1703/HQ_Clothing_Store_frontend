@@ -152,11 +152,17 @@ const AdminDashboard = () => {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
 
-      // Revenue today - sum of all PAID orders (check status and paymentDate)
-      // For testing: show all revenue first regardless of date
+      // Revenue today - sum of PAID orders from TODAY ONLY
       const todayRevenue = orders.reduce((sum: number, order: any) => {
         const isPaid = order.status === 'Paid' || order.status === 'Completed' || order.status === 'Success' || order.paymentDate;
-        return isPaid ? sum + (order.totalAmount || 0) : sum;
+        if (!isPaid) return sum;
+        
+        if (!order.orderDate) return sum;
+        const orderDate = new Date(order.orderDate);
+        if (isNaN(orderDate.getTime())) return sum;
+        orderDate.setHours(0, 0, 0, 0);
+        
+        return orderDate.getTime() === today.getTime() ? sum + (order.totalAmount || 0) : sum;
       }, 0);
 
       // Pending orders
