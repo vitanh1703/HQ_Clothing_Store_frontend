@@ -16,6 +16,7 @@ interface CartItem {
   quantity: number;
   total: number;
   image: string;
+  stockQuantity?: number;
 }
 
 interface CartResponse {
@@ -250,6 +251,16 @@ const CartPage = () => {
                       <h2 className="font-bold text-sm md:text-base text-gray-900 mb-1 line-clamp-2 pr-4">
                         {item.productName}
                       </h2>
+                      {item.stockQuantity !== undefined && item.stockQuantity <= 0 && (
+                        <p className="text-[10px] font-bold text-red-500 uppercase mb-1">
+                          ⚠️ Sản phẩm này vừa hết hàng
+                        </p>
+                      )}
+                      {item.stockQuantity !== undefined && item.stockQuantity > 0 && item.quantity > item.stockQuantity && (
+                        <p className="text-[10px] font-bold text-orange-500 uppercase mb-1">
+                          ⚠️ Chỉ còn {item.stockQuantity} sản phẩm trong kho
+                        </p>
+                      )}
                       <p className="text-xs md:text-sm text-gray-500 font-medium space-x-2">
                         <span>Size: <b className="text-gray-800">{item.size}</b></span> 
                         <span>|</span> 

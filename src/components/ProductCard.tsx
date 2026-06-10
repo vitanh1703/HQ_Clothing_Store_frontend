@@ -165,6 +165,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
       return;
     }
 
+    const currentStock = variantToAdd.stockQuantity ?? (variantToAdd as any).stock_quantity;
+    if (Number(currentStock) <= 0) {
+      alert("Sản phẩm này hiện đã hết hàng!");
+      return;
+    }
+
     const button = buttonRef.current;
     if (!button || button.classList.contains('active')) return;
 
@@ -299,7 +305,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <button
             ref={buttonRef}
             onClick={handleAddToCart}
-            className="add-to-cart w-full relative h-11.25 rounded-sm bg-black text-white text-[10px] font-bold uppercase overflow-hidden tracking-widest transition-all duration-300 hover:bg-zinc-900"
+            disabled={!!(variantToAdd && Number(variantToAdd.stockQuantity ?? (variantToAdd as any).stock_quantity) <= 0)}
+            className={`add-to-cart w-full relative h-11.25 rounded-sm bg-black text-white text-[10px] font-bold uppercase overflow-hidden tracking-widest transition-all duration-300 ${
+              variantToAdd && Number(variantToAdd.stockQuantity ?? (variantToAdd as any).stock_quantity) <= 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-zinc-900'
+            }`}
             style={{
                 '--shirt-y': '-42px',
                 '--shirt-scale': 0,
@@ -310,7 +319,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
             } as React.CSSProperties}
           >
             <span className="relative z-10 block transition-opacity duration-300" style={{ opacity: 'var(--text-o)' }}>
-              {variantToAdd ? `Add - ${(Number(displayPrice) * quantity).toLocaleString()}đ` : 'Chọn Phân Loại'}
+              {variantToAdd 
+                ? (Number(variantToAdd.stockQuantity ?? (variantToAdd as any).stock_quantity) <= 0 
+                    ? 'Hết Hàng' 
+                    : `Add - ${(Number(displayPrice) * quantity).toLocaleString()}đ`)
+                : 'Chọn Phân Loại'}
             </span>
 
             <div className="shirt pointer-events-none absolute left-1/2 top-0 -ml-3 origin-bottom"

@@ -200,6 +200,12 @@ const ProductDetailPage = () => {
             {(selectedVariant ? selectedVariant.price : product.variants[0]?.price)?.toLocaleString()}đ
           </p>
 
+          {selectedVariant && selectedVariant.stockQuantity <= 0 && (
+            <p className="text-sm font-bold text-red-500 uppercase tracking-wider animate-pulse">
+              ⚠️ Hiện tại sản phẩm này đã hết hàng
+            </p>
+          )}
+
           <div className="mt-2 flex gap-2">
             <span className="text-sm font-medium">Màu sắc:</span>
             {availableColors.map((color) => (
@@ -253,10 +259,15 @@ const ProductDetailPage = () => {
           </div>
 
           <button
-            className="mt-4 rounded bg-black px-6 py-2 text-white hover:bg-gray-800"
+            className={`mt-4 rounded px-6 py-2 text-white transition-all duration-300 ${
+              selectedVariant && (selectedVariant.stockQuantity ?? (selectedVariant as any).stock_quantity) <= 0
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-black hover:bg-gray-800"
+            }`}
             onClick={handleAddToCart}
+            disabled={!!(selectedVariant && (selectedVariant.stockQuantity ?? (selectedVariant as any).stock_quantity) <= 0)}
           >
-            Thêm vào giỏ hàng
+            {selectedVariant && (selectedVariant.stockQuantity ?? (selectedVariant as any).stock_quantity) <= 0 ? "HẾT HÀNG" : "Thêm vào giỏ hàng"}
           </button>
         </div>
         </div>
