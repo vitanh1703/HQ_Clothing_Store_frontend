@@ -30,6 +30,18 @@ const PromotionsPage = () => {
     setTimeout(() => setCopiedCode(null), 2000);
   };
 
+  const getDiscountDisplay = (promo: PromotionItem) => {
+    if (promo.discountText) return promo.discountText;
+    
+    // Nếu là số tiền lớn (>= 1000) thì không thêm %
+    if (promo.discountValue >= 1000) {
+      return promo.discountValue;
+    }
+    
+    // Nếu nhỏ hơn 100 thì là phần trăm, thêm %
+    return `${promo.discountValue}%`;
+  };
+
   return (
     <div className="bg-[#F5F5F5] min-h-screen pb-20">
       <section className="px-6 lg:px-20 py-10 lg:py-16 bg-white border-b border-gray-200">
@@ -74,7 +86,7 @@ const PromotionsPage = () => {
                  <div className="bg-red-500 p-6 flex flex-col items-center justify-center text-white relative overflow-hidden">
                     <div className="absolute -top-10 -right-10 w-32 h-32 bg-white opacity-10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
                     <div className="absolute -bottom-10 -left-10 w-24 h-24 bg-black opacity-10 rounded-full blur-xl group-hover:scale-150 transition-transform duration-700 delay-100"></div>
-                    <h3 className="text-3xl font-black tracking-tighter z-10">{promo.discountText || `${promo.discountValue}%`}</h3>
+                    <h3 className="text-3xl font-black tracking-tighter z-10">{getDiscountDisplay(promo)}</h3>
                     <p className="text-xs uppercase tracking-widest mt-2 font-bold opacity-90 z-10">Voucher Đặc Biệt</p>
                  </div>
                  
